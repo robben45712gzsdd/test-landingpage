@@ -83,6 +83,31 @@
       ></div>
     </div>
 
+    <!-- Loading State -->
+    <div v-if="loading" class="fixed inset-0 z-[3000] flex items-center justify-center bg-black">
+      <div class="text-center">
+        <div class="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin mx-auto mb-4"></div>
+        <p class="text-cyan-400 text-lg">Loading games...</p>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div v-if="error && !loading" class="fixed inset-0 z-[3000] flex items-center justify-center bg-black px-4">
+      <div class="text-center max-w-md">
+        <svg class="w-16 h-16 text-red-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <h2 class="text-red-400 text-xl font-bold mb-2">Failed to load games</h2>
+        <p class="text-white/60 mb-4">{{ error }}</p>
+        <button 
+          @click="fetchGames"
+          class="bg-cyan-500 hover:bg-cyan-600 px-6 py-2 rounded-lg text-white font-semibold transition-colors"
+        >
+          Retry
+        </button>
+      </div>
+    </div>
+
     <!-- HOME SECTION -->
     <section
       class="relative w-full h-screen flex justify-center items-center pb-32 overflow-hidden"
@@ -120,15 +145,18 @@
     </section>
 
     <!-- GAMES SHOWCASE SECTION -->
-    <section id="games" class="relative bg-black w-full pb-[80px] md:pb-0" ref="gamesSection">
+    <section v-if="!loading && !error" id="games" class="relative bg-black w-full pb-[80px] md:pb-0" ref="gamesSection">
       <!-- Fixed Background Video (Hidden on Mobile) -->
       <div
         class="hidden md:block top-[70px] left-0 right-0 z-0 fixed h-[calc(100vh-70px)] overflow-hidden pointer-events-none"
       >
         <video
-          ref="gameVideo"
-          class="w-full h-full object-cover brightness-[0.6] transition-opacity duration-700"
-          :src="games[currentGameIndex].video"
+          v-for="(game, index) in games"
+          :key="game.id"
+          :ref="`gameVideo${index}`"
+          class="absolute inset-0 w-full h-full object-cover brightness-[0.6] transition-opacity duration-700"
+          :class="{ 'opacity-100': currentGameIndex === index, 'opacity-0': currentGameIndex !== index }"
+          :src="game.videoUrl"
           muted
           playsinline
           autoplay
@@ -136,6 +164,15 @@
           preload="metadata"
         ></video>
         <div class="absolute inset-0 bg-black/40"></div>
+        
+        <!-- Transition Overlay Effect -->
+        <div 
+          ref="transitionOverlay"
+          class="absolute inset-0 pointer-events-none"
+          :style="{ opacity: transitionProgress }"
+        >
+          <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-blue-500/20 to-purple-500/20"></div>
+        </div>
       </div>
 
       <!-- Game Cards Content -->
@@ -146,7 +183,7 @@
         <!-- Game Cards -->
         <div
           v-for="(game, index) in games"
-          :key="index"
+          :key="game.id"
           class="md:h-screen w-full bg-black md:bg-transparent"
           :ref="`gameSection${index}`"
           :data-game-section="index"
@@ -156,7 +193,7 @@
             <div class="bg-gradient-to-br from-blue-900/30 to-black/60 backdrop-blur-sm rounded-2xl p-6 border border-cyan-500/20">
               <video
                 class="w-full h-48 object-cover rounded-lg mb-4"
-                :src="game.video"
+                :src="game.videoUrl"
                 muted
                 playsinline
                 autoplay
@@ -205,6 +242,7 @@
             v-show="currentGameIndex === index"
             class="hidden md:block fixed left-1/2 z-20 max-w-2xl px-8 pointer-events-auto md:left-[34%] lg:left-[26%]"
             :data-game-content="index"
+            :ref="`gameContent${index}`"
             :style="{
               top: '50%',
               transform: `translate(-50%, -50%)`,
@@ -327,65 +365,13 @@ export default {
   name: "IndexPage",
   data() {
     return {
-      videos: [
-        "https://framerusercontent.com/assets/coA6LVNceeKnXPsNbxxTzspCMWQ.mp4",
-        "https://framerusercontent.com/assets/J2HtjlxUFqocuEczSgMyv0Se8.mp4",
-        "https://framerusercontent.com/assets/OPfeNYS6cWntQd8n6oAbg6AZnFM.mp4",
-        "https://framerusercontent.com/assets/EdenTRJNwjluKd054NftzAgjFnU.mp4",
-      ],
-      games: [
-        {
-          title1: "MOB",
-          title2: "CONTROL",
-          description:
-            "The always fresh, oddly satisfying strategy game where anyone can feel skilled and powerful.",
-          video:
-            "https://framerusercontent.com/assets/coA6LVNceeKnXPsNbxxTzspCMWQ.mp4",
-        },
-        {
-          title1: "STACK",
-          title2: "BLAST",
-          description:
-            "Stack colorful blocks and blast them away in this addictive puzzle adventure.",
-          video:
-            "https://framerusercontent.com/assets/OPfeNYS6cWntQd8n6oAbg6AZnFM.mp4",
-        },
-        {
-          title1: "RUSH",
-          title2: "HOUR",
-          description:
-            "Navigate through endless traffic in this fast-paced arcade racing challenge.",
-          video:
-            "https://framerusercontent.com/assets/EdenTRJNwjluKd054NftzAgjFnU.mp4",
-        },
-        {
-          title1: "FLIP",
-          title2: "MASTER",
-          description:
-            "Master the art of flipping as you conquer impossible obstacles with style.",
-          video:
-            "https://framerusercontent.com/assets/coA6LVNceeKnXPsNbxxTzspCMWQ.mp4",
-        },
-        {
-          title1: "CUBE",
-          title2: "RUNNER",
-          description:
-            "Race through vibrant neon worlds and dodge deadly obstacles in epic 3D action.",
-          video:
-            "https://framerusercontent.com/assets/J2HtjlxUFqocuEczSgMyv0Se8.mp4",
-        },
-        {
-          title1: "DASH",
-          title2: "INFINITY",
-          description:
-            "Endless speed challenges with mind-bending mechanics. How far can you go?",
-          video:
-            "https://framerusercontent.com/assets/OPfeNYS6cWntQd8n6oAbg6AZnFM.mp4",
-        },
-      ],
+      games: [],
+      loading: true,
+      error: null,
       currentGameIndex: 0,
       currentSection: "home",
       currentSectionLabel: "HOME",
+      transitionProgress: 0,
       sectionDots: [
         { id: "home", label: "Home", active: true },
         { id: "games", label: "Games", active: false },
@@ -395,7 +381,9 @@ export default {
       sectionTrackListener: null,
     };
   },
-  mounted() {
+  async mounted() {
+    await this.fetchGames();
+
     const waitForGSAP = setInterval(() => {
       if (window.gsap && window.ScrollTrigger) {
         clearInterval(waitForGSAP);
@@ -418,6 +406,28 @@ export default {
       window.removeEventListener("scroll", this.sectionTrackListener);
   },
   methods: {
+    async fetchGames() {
+      this.loading = true;
+      this.error = null;
+
+      try {
+        const response = await this.$axios.$get(
+          "http://154.26.134.211:8090/api/Game/GetListGame"
+        );
+
+        if (response.isSuccess && response.data) {
+          this.games = response.data;
+        } else {
+          throw new Error(response.message || "Failed to fetch games");
+        }
+      } catch (err) {
+        console.error("Error fetching games:", err);
+        this.error = err.message || "Unable to load games. Please try again.";
+      } finally {
+        this.loading = false;
+      }
+    },
+
     scrollToSection(sectionId) {
       const element = document.getElementById(sectionId);
       if (element) element.scrollIntoView({ behavior: "smooth" });
@@ -456,8 +466,9 @@ export default {
 
     setupScrollAnimations() {
       const gsap = window.gsap;
-      if (!gsap) return;
+      if (!gsap || this.games.length === 0) return;
 
+      // Hero section animations
       if (this.$refs.heroTitle && this.$refs.heroSubtitle) {
         gsap.to([this.$refs.heroTitle, this.$refs.heroSubtitle], {
           scrollTrigger: {
@@ -473,63 +484,72 @@ export default {
         });
       }
 
+      // Game sections với hiệu ứng transition mượt hơn
       this.games.forEach((game, index) => {
         this.$nextTick(() => {
           const gameSection = document.querySelector(
             `[data-game-section="${index}"]`
           );
-          const gameContent = document.querySelector(
-            `[data-game-content="${index}"]`
-          );
+          const gameContent = this.$refs[`gameContent${index}`]?.[0];
 
           if (!gameSection || !gameContent) return;
 
-          gsap.to(
-            {},
-            {
-              scrollTrigger: {
-                trigger: gameSection,
-                start: "top center",
-                end: "center center",
-                onEnter: () => {
-                  this.currentGameIndex = index;
-                },
-                onEnterBack: () => {
-                  this.currentGameIndex = index;
-                },
-              },
-            }
-          );
-
-          gsap.set(gameContent, { y: 0 });
-          gsap.fromTo(
-            gameContent,
-            { opacity: 0 },
-            {
-              scrollTrigger: {
-                trigger: gameSection,
-                start: "top 90%",
-                end: "top 20%",
-                scrub: 2,
-              },
-              opacity: 1,
-              ease: "power1.inOut",
-            }
-          );
-
-          gsap.to(gameContent, {
+          // Switch game index
+          gsap.to({}, {
             scrollTrigger: {
               trigger: gameSection,
-              start: "bottom 60%",
-              end: "bottom 0%",
-              scrub: 2,
+              start: "top 60%",
+              end: "top 40%",
+              onEnter: () => {
+                this.currentGameIndex = index;
+              },
+              onEnterBack: () => {
+                this.currentGameIndex = index;
+              },
             },
+          });
+
+          // Timeline cho animation
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: gameSection,
+              start: "top 80%",
+              end: "bottom 20%",
+              scrub: 0.8,
+            },
+          });
+
+          // Từ nhỏ to dần khi scroll xuống
+          tl.fromTo(
+            gameContent,
+            { 
+              opacity: 0,
+              scale: 0.3
+            },
+            { 
+              opacity: 1,
+              scale: 1,
+              duration: 0.3,
+              ease: "power2.out",
+            }
+          )
+          // Giữ ở trạng thái full size
+          .to(gameContent, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.4,
+            ease: "none",
+          })
+          // Fade out khi scroll tiếp
+          .to(gameContent, {
             opacity: 0,
-            ease: "power1.inOut",
+            duration: 0.3,
+            ease: "power2.in",
           });
         });
       });
 
+      // About section animation
       if (this.$refs.aboutSection) {
         gsap.from(this.$refs.aboutSection, {
           scrollTrigger: {
