@@ -250,7 +250,7 @@
       <!-- Transition Blend Overlay -->
       <div
         ref="transitionBlend"
-        class="hidden md:block top-0 right-0 left-0 z-[6] fixed h-screen bg-black opacity-0 pointer-events-none transition-opacity duration-1000"
+        class="hidden md:block top-0 right-0 left-0 z-[6] fixed bg-black opacity-0 h-screen transition-opacity duration-1000 pointer-events-none"
       ></div>
 
       <!-- Desktop: Fixed Background Videos (Including Hero) -->
@@ -261,7 +261,7 @@
         <!-- Hero Video (index -1) -->
         <video
           ref="heroVideoFixed"
-          class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+          class="absolute inset-0 !brightness-[0.4] w-full h-full object-cover transition-opacity duration-1000"
           :class="{
             'opacity-100': currentGameIndex === -1,
             'opacity-0': currentGameIndex !== -1,
