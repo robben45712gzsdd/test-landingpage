@@ -1,7 +1,7 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: "Voodoo - Entertain the World",
+    title: "NEKSOLUTION - Entertain the World",
     htmlAttrs: {
       lang: "en",
     },
@@ -11,7 +11,7 @@ export default {
       {
         hid: "description",
         name: "description",
-        content: "Voodoo - Entertain the world with iconic apps and games",
+        content: "NEKSOLUTION - Entertain the world with iconic apps and games",
       },
     ],
     link: [

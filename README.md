@@ -1,6 +1,6 @@
-# Voodoo Landing Page
+# NEKSOLUTION Landing Page
 
-A modern, animated landing page inspired by voodoo.io built with Nuxt 2 and GSAP animations.
+A modern, animated landing page inspired by NEKSOLUTION.io built with Nuxt 2 and GSAP animations.
 
 ## 🚀 Features
 
