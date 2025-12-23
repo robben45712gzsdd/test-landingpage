@@ -278,7 +278,7 @@
           v-for="(game, index) in games"
           :key="game.id"
           :ref="`gameVideo${index}`"
-          class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+          class="absolute inset-0 brightness-[1.1] w-full h-full object-cover transition-opacity duration-1000"
           :class="{
             'opacity-100': currentGameIndex === index,
             'opacity-0': currentGameIndex !== index,
@@ -295,14 +295,14 @@
           <!-- Hero Overlay (when currentGameIndex === -1) - Very light overlay -->
           <div
             v-if="currentGameIndex === -1"
-            class="absolute inset-0 bg-gradient-to-br from-black/10 via-black/20 to-black/10 transition-opacity duration-1000"
+            class="absolute inset-0 bg-gradient-to-br from-black/10 via-black/10 to-black/5 transition-opacity duration-1000"
           ></div>
 
           <!-- Game Overlay (when currentGameIndex >= 0) -->
           <template v-else>
             <!-- Left Side: Dark overlay for text area -->
             <div
-              class="top-0 bottom-0 left-0 absolute bg-gradient-to-r from-black/90 via-black/70 to-transparent w-[55%]"
+              class="top-0 bottom-0 left-0 absolute bg-gradient-to-r from-black/80 via-black/60 to-transparent w-[55%]"
             ></div>
 
             <!-- Right Side: Light overlay to keep video visible -->
