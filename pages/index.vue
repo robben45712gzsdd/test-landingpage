@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-black w-full overflow-x-hidden relative">
+  <div class="relative bg-black w-full overflow-x-hidden">
     <!-- Animated Background -->
     <div
       class="fixed inset-0 bg-gradient-to-br from-red-950 via-black to-purple-950 opacity-40 pointer-events-none"
@@ -13,7 +13,7 @@
     </div>
 
     <!-- Scroll Progress -->
-    <div class="top-0 right-0 left-0 z-[2001] fixed h-1 bg-black/50">
+    <div class="top-0 right-0 left-0 z-[2001] fixed bg-black/50 h-1">
       <div
         ref="progressBar"
         class="bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 shadow-[0_0_30px_rgba(239,68,68,0.8)] h-full transition-all duration-100"
@@ -25,9 +25,9 @@
       class="top-0 right-0 left-0 z-[2000] fixed bg-black/40 backdrop-blur-2xl border-red-500/20 border-b h-20"
     >
       <nav class="flex justify-between items-center mx-auto px-12 h-full">
-        <div class="relative group">
+        <div class="group relative">
           <div
-            class="relative bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-red-400 font-black text-transparent text-2xl lg:text-3xl tracking-wider drop-shadow-[0_0_8px_rgba(239,68,68,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(239,68,68,0.7)] transition-all duration-300"
+            class="relative bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-red-400 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(239,68,68,0.7)] font-black text-transparent text-2xl lg:text-3xl tracking-wider transition-all duration-300"
             style="text-shadow: 0 0 10px rgba(239, 68, 68, 0.4)"
           >
             NEKSOLUTION
@@ -35,7 +35,7 @@
         </div>
 
         <!-- Desktop Menu -->
-        <div class="md:flex gap-8 hidden">
+        <div class="hidden md:flex gap-8">
           <a
             v-for="section in ['home', 'games', 'about']"
             :key="section"
@@ -50,7 +50,7 @@
             {{ section }}
             <span
               v-if="currentSection === section"
-              class="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-red-500 to-pink-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]"
+              class="right-0 -bottom-2 left-0 absolute bg-gradient-to-r from-red-500 to-pink-500 shadow-[0_0_10px_rgba(239,68,68,0.8)] h-0.5"
             ></span>
           </a>
         </div>
@@ -86,7 +86,7 @@
           :key="section"
           :href="`#${section}`"
           @click="mobileMenuOpen = false"
-          class="block hover:bg-red-500/10 px-6 py-4 font-bold text-sm text-white/70 hover:text-red-400 uppercase tracking-wider transition-all"
+          class="block hover:bg-red-500/10 px-6 py-4 font-bold text-white/70 hover:text-red-400 text-sm uppercase tracking-wider transition-all"
         >
           {{ section }}
         </a>
@@ -95,7 +95,7 @@
 
     <!-- Section Dots -->
     <div
-      class="top-1/2 right-6 lg:right-10 z-[1800] fixed flex-col gap-5 -translate-y-1/2 hidden lg:flex"
+      class="hidden top-1/2 right-6 lg:right-10 z-[1800] fixed lg:flex flex-col gap-5 -translate-y-1/2"
     >
       <button
         v-for="(dot, index) in sectionDots"
@@ -113,10 +113,10 @@
 
     <!-- Section Label -->
     <div
-      class="top-24 left-1/2 z-[1800] fixed -translate-x-1/2 pointer-events-none hidden md:block"
+      class="hidden md:block top-24 left-1/2 z-[1800] fixed -translate-x-1/2 pointer-events-none"
     >
       <span
-        class="font-black text-red-500/70 text-xs tracking-[0.3em] uppercase animate-pulse"
+        class="font-black text-red-500/70 text-xs uppercase tracking-[0.3em] animate-pulse"
       >
         {{ currentSectionLabel }}
       </span>
@@ -125,7 +125,7 @@
     <!-- Loading State -->
     <div
       v-if="loading"
-      class="fixed inset-0 z-[3000] flex items-center justify-center bg-black"
+      class="z-[3000] fixed inset-0 flex justify-center items-center bg-black"
     >
       <div class="text-center">
         <div class="relative mx-auto mb-6 w-20 h-20">
@@ -147,9 +147,9 @@
     <!-- Error State -->
     <div
       v-if="error && !loading"
-      class="fixed inset-0 z-[3000] flex items-center justify-center bg-black px-4"
+      class="z-[3000] fixed inset-0 flex justify-center items-center bg-black px-4"
     >
-      <div class="text-center max-w-md">
+      <div class="max-w-md text-center">
         <div class="relative mx-auto mb-6 w-20 h-20">
           <div
             class="absolute inset-0 bg-red-500/20 rounded-full animate-ping"
@@ -168,11 +168,11 @@
             />
           </svg>
         </div>
-        <h2 class="mb-3 font-black text-2xl text-red-500">Failed to Load</h2>
-        <p class="mb-6 text-base text-white/60">{{ error }}</p>
+        <h2 class="mb-3 font-black text-red-500 text-2xl">Failed to Load</h2>
+        <p class="mb-6 text-white/60 text-base">{{ error }}</p>
         <button
           @click="fetchGames"
-          class="bg-gradient-to-r from-red-500 to-pink-600 hover:shadow-[0_0_30px_rgba(239,68,68,0.6)] px-8 py-3 rounded-full font-bold text-white transition-all hover:scale-110 duration-300"
+          class="bg-gradient-to-r from-red-500 to-pink-600 hover:shadow-[0_0_30px_rgba(239,68,68,0.6)] px-8 py-3 rounded-full font-bold text-white hover:scale-110 transition-all duration-300"
         >
           Retry
         </button>
@@ -187,7 +187,7 @@
     >
       <video
         ref="heroVideo"
-        class="absolute inset-0 -z-10 brightness-[0.4] w-full h-full object-cover"
+        class="-z-10 absolute inset-0 brightness-[0.4] w-full h-full object-cover"
         src="https://framerusercontent.com/assets/OPfeNYS6cWntQd8n6oAbg6AZnFM.mp4"
         muted
         playsinline
@@ -196,23 +196,23 @@
       ></video>
 
       <div
-        class="absolute inset-0 -z-10 bg-gradient-to-br from-red-950/60 via-black/70 to-purple-950/60"
+        class="-z-10 absolute inset-0 bg-gradient-to-br from-red-950/60 via-black/70 to-purple-950/60"
       ></div>
 
       <!-- Animated Rings -->
-      <div class="absolute inset-0 -z-5 flex justify-center items-center">
+      <div class="-z-5 absolute inset-0 flex justify-center items-center">
         <div
-          class="border-2 border-red-500/10 opacity-20 rounded-full animate-ping w-96 h-96"
+          class="opacity-20 border-2 border-red-500/10 rounded-full w-96 h-96 animate-ping"
         ></div>
         <div
-          class="absolute border-2 border-pink-500/10 opacity-20 rounded-full animate-ping animation-delay-500 w-[600px] h-[600px]"
+          class="absolute opacity-20 border-2 border-pink-500/10 rounded-full w-[600px] h-[600px] animate-ping animation-delay-500"
         ></div>
       </div>
 
-      <div class="relative z-10 px-4 md:px-8 max-w-5xl text-center">
+      <div class="z-10 relative px-4 md:px-8 max-w-5xl text-center">
         <div ref="heroTitle" class="mb-6 overflow-hidden">
           <h1
-            class="mb-2 font-black text-5xl md:text-8xl lg:text-7xl tracking-tight leading-none"
+            class="mb-2 font-black text-5xl lg:text-7xl md:text-8xl leading-none tracking-tight"
           >
             <span
               class="bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-red-600 text-transparent animate-gradient"
@@ -221,7 +221,7 @@
             </span>
           </h1>
           <h1
-            class="font-black text-5xl md:text-8xl lg:text-7xl tracking-tight leading-none"
+            class="font-black text-5xl lg:text-7xl md:text-8xl leading-none tracking-tight"
           >
             <span
               class="bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-red-500 text-transparent animate-gradient animation-delay-300"
@@ -242,12 +242,12 @@
         <button
           ref="heroButton"
           @click="scrollToSection('games')"
-          class="group relative px-10 py-4 rounded-full font-bold text-lg overflow-hidden"
+          class="group relative px-10 py-4 rounded-full overflow-hidden font-bold text-lg"
         >
           <div
             class="absolute inset-0 bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 group-hover:scale-110 transition-transform duration-300"
           ></div>
-          <span class="relative flex text-white items-center gap-3"> EXPLORE GAMES </span>
+          <span class="relative flex items-center gap-3 text-white"> EXPLORE GAMES </span>
         </button>
 
         <!-- Scroll Indicator -->
@@ -259,77 +259,75 @@
       v-if="!loading && !error"
       id="games"
       ref="gamesSection"
-      class="relative bg-black w-full pb-20 md:pb-0"
+      class="relative bg-black pb-20 md:pb-0 w-full"
     >
-      <!-- Desktop: Fixed Background Videos -->
-      <div
-        class="top-20 left-0 right-0 z-0 fixed md:block hidden h-[calc(100vh-80px)] overflow-hidden pointer-events-none"
-      >
-        <video
-          v-for="(game, index) in games"
-          :key="game.id"
-          :ref="`gameVideo${index}`"
-          class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
-          :class="{
-            'opacity-100': currentGameIndex === index,
-            'opacity-0': currentGameIndex !== index,
-          }"
-          :src="game.videoUrl"
-          muted
-          playsinline
-          autoplay
-          loop
-        ></video>
-
-        <!-- Split Overlay: Left side dark, Right side clear -->
-        <div class="absolute inset-0 pointer-events-none">
-          <!-- Left Side: Dark overlay for text area -->
-          <div
-            class="absolute top-0 bottom-0 left-0 w-[55%] bg-gradient-to-r from-black/90 via-black/70 to-transparent"
-          ></div>
-
-          <!-- Right Side: Light overlay to keep video visible -->
-          <div
-            class="absolute top-0 bottom-0 right-0 w-[45%] bg-gradient-to-l from-black/20 via-transparent to-transparent"
-          ></div>
-
-          <!-- Dynamic Color Accent -->
-          <div
-            class="absolute inset-0 transition-opacity duration-1000"
-            :style="{
-              background: `radial-gradient(circle at ${
-                70 + currentGameIndex * 5
-              }% 50%, rgba(239, 68, 68, 0.15), transparent 60%)`,
-              opacity: 0.6,
-            }"
-          ></div>
-        </div>
-      </div>
 
       <!-- Game Cards -->
-      <div class="relative z-10">
-        <div class="md:block hidden h-[30vh]"></div>
+      <div class="z-10 relative">
+        <div class="hidden md:block h-[30vh]"></div>
 
         <div
           v-for="(game, index) in games"
           :key="game.id"
-          class="md:h-screen w-full"
+          class="relative w-full md:h-screen"
           :ref="`gameSection${index}`"
           :data-game-section="index"
         >
+          <!-- Desktop: Individual Background Video per Section -->
+          <div
+            class="hidden md:block top-20 right-0 left-0 z-0 fixed h-[calc(100vh-80px)] overflow-hidden pointer-events-none"
+            :ref="`videoContainer${index}`"
+          >
+            <video
+              :ref="`gameVideo${index}`"
+              class="absolute inset-0 opacity-0 brightness-[1.15] w-full h-full object-cover contrast-[1.05]"
+              :src="game.videoUrl"
+              :poster="game.linkImg"
+              muted
+              playsinline
+              loop
+              preload="auto"
+            ></video>
+
+            <!-- Split Overlay with Glassmorphism -->
+            <div class="absolute inset-0 pointer-events-none">
+              <!-- Left Side: Glassmorphism overlay for content -->
+              <div
+                class="top-0 bottom-0 left-0 absolute bg-gradient-to-r from-black/70 via-black/40 to-transparent backdrop-blur-[2px] w-[45%]"
+              ></div>
+
+              <!-- Right Side: Subtle vignette -->
+              <div
+                class="top-0 right-0 bottom-0 absolute bg-gradient-to-l from-black/10 via-transparent to-transparent w-[25%]"
+              ></div>
+
+              <!-- Dynamic Color Accent with animated glow -->
+              <div
+                class="absolute inset-0 opacity-40 transition-all duration-1500"
+                :style="{
+                  background: `radial-gradient(ellipse at ${
+                    70 + index * 4
+                  }% 50%, rgba(239, 68, 68, 0.25) 0%, rgba(236, 72, 153, 0.15) 40%, transparent 70%)`,
+                }"
+              ></div>
+              
+              <!-- Ambient glow particles -->
+              <div class="absolute inset-0 opacity-20" style="background: radial-gradient(circle at 30% 30%, rgba(239, 68, 68, 0.1), transparent 50%), radial-gradient(circle at 70% 70%, rgba(236, 72, 153, 0.1), transparent 50%)"></div>
+            </div>
+          </div>
           <!-- Mobile Card -->
           <div class="md:hidden px-4 py-6">
             <div
-              class="relative backdrop-blur-xl bg-gradient-to-br from-red-950/40 via-black/60 to-purple-950/40 hover:shadow-[0_0_50px_rgba(239,68,68,0.3)] p-6 border-2 border-red-500/30 rounded-3xl transition-all duration-500 overflow-hidden group"
+              class="group relative bg-gradient-to-br from-red-950/40 via-black/60 to-purple-950/40 hover:shadow-[0_0_50px_rgba(239,68,68,0.3)] backdrop-blur-xl p-6 border-2 border-red-500/30 rounded-3xl overflow-hidden transition-all duration-500"
             >
               <!-- Animated Border -->
               <div
-                class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 blur-xl transition-opacity duration-500"
+                class="absolute inset-0 bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"
               ></div>
 
               <div class="relative">
                 <video
-                  class="mb-5 rounded-2xl w-full h-52 object-cover shadow-2xl"
+                  class="shadow-2xl mb-5 rounded-2xl w-full h-52 object-cover"
                   :src="game.videoUrl"
                   muted
                   playsinline
@@ -340,29 +338,29 @@
                 <div class="space-y-4">
                   <div class="space-y-1">
                     <h3
-                      class="drop-shadow-[0_0_25px_rgba(239,68,68,0.8)] font-black text-3xl text-red-500"
+                      class="drop-shadow-[0_0_25px_rgba(239,68,68,0.8)] font-black text-red-500 text-3xl"
                     >
                       {{ game.title1 }}
                     </h3>
                     <h3
-                      class="bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 font-black text-3xl text-transparent"
+                      class="bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 font-black text-transparent text-3xl"
                     >
                       {{ game.title2 }}
                     </h3>
                   </div>
 
-                  <p class="font-light text-sm text-white/80 leading-relaxed">
+                  <p class="font-light text-white/80 text-sm leading-relaxed">
                     {{ game.description }}
                   </p>
 
-                  <div class="flex mt-8  gap-3">
+                  <div class="flex gap-3 mt-8">
                     <a
                       href="https://apps.apple.com"
                       target="_blank"
                     >
                       <img
                         src="../assets/Download_on_the_App_Store_Badge.svg"
-                        class="h-12 w-auto object-contain"
+                        class="w-auto h-12 object-contain"
                       />
                     </a>
                     <a
@@ -371,7 +369,7 @@
                     >
                       <img
                         src="../assets/Google_Play_Store_badge_EN.svg"
-                        class="h-12 w-auto object-contain"
+                        class="w-auto h-12 object-contain"
                       />
                     </a>
                   </div>
@@ -380,33 +378,41 @@
             </div>
           </div>
 
-          <!-- Desktop Fixed Content -->
+          <!-- Desktop Fixed Content with Glassmorphism -->
           <div
             v-show="currentGameIndex === index"
-            class="top-1/2 z-20 fixed md:block hidden max-w-3xl px-8 -translate-x-1/2 -translate-y-1/2 pointer-events-auto game-content"
+            class="hidden md:block top-1/2 z-20 fixed px-8 max-w-4xl -translate-x-1/2 -translate-y-1/2 pointer-events-auto game-content"
             :ref="`gameContent${index}`"
           >
-            <div class="space-y-8">
-              <div class="flex">
-                <img
-                  :src="game.linkImg"
-                  :alt="`${game.title1} ${game.title2} Logo`"
-                  class="max-w-[280px] max-h-34 object-contain drop-shadow-[0_0_25px_rgba(239,68,68,0.6)]"
-                />
-              </div>
+            <!-- Glassmorphism Container -->
+            <div class="group relative bg-gradient-to-br from-black/40 via-black/20 to-transparent shadow-2xl backdrop-blur-md p-10 border border-white/10 rounded-3xl overflow-hidden">
+              <!-- Animated gradient border glow -->
+              <div class="absolute inset-0 opacity-0 group-hover:opacity-100 rounded-3xl transition-opacity duration-700" style="background: linear-gradient(45deg, rgba(239, 68, 68, 0.3), rgba(236, 72, 153, 0.3), rgba(168, 85, 247, 0.3)); filter: blur(20px);"></div>
+              
+              <div class="relative space-y-10">
+                <div class="flex items-center">
+                  <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-red-500/20 to-pink-500/20 blur-3xl animate-pulse"></div>
+                    <img
+                      :src="game.linkImg"
+                      :alt="`${game.title1} ${game.title2} Logo`"
+                      class="relative drop-shadow-[0_0_35px_rgba(239,68,68,0.8)] max-w-[320px] max-h-40 object-contain hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                </div>
 
-              <p
-                class="font-bold text-white/90 text-xl lg:text-2xl leading-relaxed pr-24"
-              >
-                {{ game.description }}
-              </p>
-
-              <div class="flex gap-4">
-                <a
-                  href="https://apps.apple.com"
-                  target="_blank"
-                  class="group relative inline-block transition-transform duration-300 hover:scale-110"
+                <p
+                  class="drop-shadow-lg pr-20 font-bold text-white/95 text-2xl lg:text-3xl leading-relaxed"
                 >
+                  {{ game.description }}
+                </p>
+
+                <div class="flex items-center gap-5">
+                  <a
+                    href="https://apps.apple.com"
+                    target="_blank"
+                    class="group inline-block relative hover:drop-shadow-[0_0_15px_rgba(239,68,68,0.5)] hover:scale-110 transition-all duration-300"
+                  >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="93"
@@ -471,7 +477,7 @@
                 <a
                   href="https://play.google.com/store"
                   target="_blank"
-                  class="group relative inline-block transition-transform duration-300 hover:scale-110"
+                  class="group inline-block relative hover:scale-110 transition-transform duration-300"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -539,6 +545,7 @@
                     />
                   </svg>
                 </a>
+                </div>
               </div>
             </div>
           </div>
@@ -550,24 +557,24 @@
     <section
       id="about"
       ref="aboutSection"
-      class="relative bg-gradient-to-br from-red-950/50 via-black to-purple-950/50 px-6 md:px-12 py-24 md:py-40 border-red-500/30 border-t w-full z-20"
+      class="z-20 relative bg-gradient-to-br from-red-950/50 via-black to-purple-950/50 px-6 md:px-12 py-24 md:py-40 border-red-500/30 border-t w-full"
     >
       <div class="relative mx-auto max-w-4xl">
         <div
-          class="absolute -inset-20 opacity-30 bg-red-500/10 blur-3xl rounded-full"
+          class="absolute -inset-20 bg-red-500/10 opacity-30 blur-3xl rounded-full"
         ></div>
 
         <h2
-          class="relative bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 mb-12 md:mb-16 font-black text-5xl md:text-7xl text-center text-transparent"
+          class="relative bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 mb-12 md:mb-16 font-black text-transparent text-5xl md:text-7xl text-center"
         >
           About Voodoo
         </h2>
 
         <div
-          class="relative space-y-6 md:space-y-8 font-light text-lg md:text-xl text-white/85 leading-relaxed"
+          class="relative space-y-6 md:space-y-8 font-light text-white/85 text-lg md:text-xl leading-relaxed"
         >
           <p
-            class="backdrop-blur-sm bg-white/5 hover:bg-white/10 p-6 border border-red-500/20 hover:border-red-500/40 rounded-2xl transition-all duration-300"
+            class="bg-white/5 hover:bg-white/10 backdrop-blur-sm p-6 border border-red-500/20 hover:border-red-500/40 rounded-2xl transition-all duration-300"
           >
             Voodoo is a leading mobile game publisher creating hyper-casual
             games that are always fresh, always fun, and always satisfying. With
@@ -575,7 +582,7 @@
             downloaded by millions worldwide.
           </p>
           <p
-            class="backdrop-blur-sm bg-white/5 hover:bg-white/10 p-6 border border-red-500/20 hover:border-red-500/40 rounded-2xl transition-all duration-300"
+            class="bg-white/5 hover:bg-white/10 backdrop-blur-sm p-6 border border-red-500/20 hover:border-red-500/40 rounded-2xl transition-all duration-300"
           >
             We believe in creating gaming experiences that are instantly
             engaging and endlessly entertaining. From strategy to puzzles,
@@ -583,7 +590,7 @@
             everyone.
           </p>
           <p
-            class="backdrop-blur-sm bg-white/5 hover:bg-white/10 p-6 border border-red-500/20 hover:border-red-500/40 rounded-2xl transition-all duration-300"
+            class="bg-white/5 hover:bg-white/10 backdrop-blur-sm p-6 border border-red-500/20 hover:border-red-500/40 rounded-2xl transition-all duration-300"
           >
             Join our community of players and discover why Voodoo games are the
             most fun you can have on your phone.
@@ -594,15 +601,15 @@
 
     <!-- FOOTER -->
     <footer
-      class="relative bg-black/95 px-6 md:px-12 py-16 border-red-500/30 border-t w-full z-20"
+      class="z-20 relative bg-black/95 px-6 md:px-12 py-16 border-red-500/30 border-t w-full"
     >
       <div class="mx-auto max-w-6xl text-center">
         <h3
-          class="bg-clip-text bg-gradient-to-r from-red-500 to-pink-500 mb-6 font-black text-3xl text-transparent"
+          class="bg-clip-text bg-gradient-to-r from-red-500 to-pink-500 mb-6 font-black text-transparent text-3xl"
         >
           VOODOO GAMES
         </h3>
-        <p class="mb-10 text-sm md:text-base text-white/50">
+        <p class="mb-10 text-white/50 text-sm md:text-base">
           &copy; 2025 Voodoo. All rights reserved.
         </p>
         <div
@@ -651,6 +658,7 @@ export default {
       ],
       scrollListener: null,
       sectionTrackListener: null,
+      videoObservers: [], // Intersection observers for videos
     };
   },
   async mounted() {
@@ -676,6 +684,10 @@ export default {
       window.removeEventListener("scroll", this.scrollListener);
     if (this.sectionTrackListener)
       window.removeEventListener("scroll", this.sectionTrackListener);
+    
+    // Cleanup video observers
+    this.videoObservers.forEach(observer => observer.disconnect());
+    this.videoObservers = [];
   },
   methods: {
     async fetchGames() {
@@ -706,6 +718,32 @@ export default {
         element.scrollIntoView({ behavior: "smooth" });
         this.mobileMenuOpen = false;
       }
+    },
+
+    // Setup Intersection Observer for smart video play/pause
+    setupVideoObservers() {
+      this.games.forEach((game, index) => {
+        const video = this.$refs[`gameVideo${index}`]?.[0];
+        if (!video) return;
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                // Play video when in viewport
+                video.play().catch(() => {});
+              } else {
+                // Pause video when out of viewport to save resources
+                video.pause();
+              }
+            });
+          },
+          { threshold: 0.5 } // 50% visible
+        );
+
+        observer.observe(video);
+        this.videoObservers.push(observer);
+      });
     },
 
     setupSectionTracking() {
@@ -785,72 +823,93 @@ export default {
         });
       }
 
-      // Game sections animations
+      // Game sections animations - Preloaded với smart play/pause
       this.games.forEach((game, index) => {
         this.$nextTick(() => {
           const gameSection = document.querySelector(
             `[data-game-section="${index}"]`
           );
           const gameContent = this.$refs[`gameContent${index}`]?.[0];
+          const gameVideo = this.$refs[`gameVideo${index}`]?.[0];
 
-          if (!gameSection || !gameContent) return;
+          if (!gameSection || !gameContent || !gameVideo) return;
 
-          // Switch game index
-          gsap.to(
-            {},
-            {
-              scrollTrigger: {
-                trigger: gameSection,
-                start: "top 60%",
-                end: "top 40%",
-                onEnter: () => {
-                  this.currentGameIndex = index;
-                },
-                onEnterBack: () => {
-                  this.currentGameIndex = index;
-                },
-              },
-            }
-          );
-
-          // Content animation timeline
-          const tl = gsap.timeline({
+          // Video background animation
+          const videoTl = gsap.timeline({
             scrollTrigger: {
               trigger: gameSection,
-              start: "top 80%",
-              end: "bottom 20%",
-              scrub: 0.8,
+              start: "top 75%",
+              end: "bottom 25%",
+              scrub: 2.5,
+              onEnter: () => (this.currentGameIndex = index),
+              onEnterBack: () => (this.currentGameIndex = index),
             },
           });
 
-          tl.fromTo(
-            gameContent,
-            {
+          videoTl
+            .fromTo(
+              gameVideo,
+              { opacity: 0, scale: 1.08, filter: "blur(10px)" },
+              {
+                opacity: 1,
+                scale: 1,
+                filter: "blur(0px)",
+                duration: 0.4,
+                ease: "power2.out",
+              }
+            )
+            .to(gameVideo, { duration: 0.2 })
+            .to(gameVideo, {
               opacity: 0,
-              scale: 0.5,
-              rotationY: -15,
-            },
-            {
-              opacity: 1,
-              scale: 1,
-              rotationY: 0,
-              duration: 0.3,
-              ease: "power2.out",
-            }
-          )
-            .to(gameContent, {
-              opacity: 1,
-              scale: 1,
+              scale: 1.08,
+              filter: "blur(10px)",
               duration: 0.4,
-              ease: "none",
-            })
-            .to(gameContent, {
-              opacity: 0,
-              scale: 0.9,
-              duration: 0.3,
               ease: "power2.in",
             });
+
+          // Content animation
+          const contentTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: gameSection,
+              start: "top 65%",
+              end: "bottom 35%",
+              scrub: 2,
+            },
+          });
+
+          contentTl
+            .fromTo(
+              gameContent,
+              {
+                opacity: 0,
+                y: 80,
+                scale: 0.85,
+                rotateX: 15,
+              },
+              {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                rotateX: 0,
+                duration: 0.35,
+                ease: "power3.out",
+              }
+            )
+            .to(gameContent, { duration: 0.3 })
+            .to(gameContent, {
+              opacity: 0,
+              y: -80,
+              scale: 0.85,
+              rotateX: -15,
+              duration: 0.35,
+              ease: "power3.in",
+            });
         });
+      });
+
+      // Setup Intersection Observers for smart video management
+      this.$nextTick(() => {
+        this.setupVideoObservers();
       });
 
       // About section animation
@@ -883,14 +942,46 @@ export default {
   },
   head() {
     return {
-      title: "Voodoo - Entertain the World",
+      title: "Voodoo Games - Entertain the World | Free Mobile Games",
       meta: [
         {
           hid: "description",
           name: "description",
-          content: "Experience next-generation gaming",
+          content: "Play the best free mobile games from Voodoo. Experience next-generation gaming with stunning visuals, instant gameplay, and revolutionary design. Download now on iOS and Android.",
         },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: "voodoo games, mobile games, free games, casual games, hyper-casual games, ios games, android games",
+        },
+        { hid: "og:title", property: "og:title", content: "Voodoo Games - Entertain the World" },
+        { hid: "og:description", property: "og:description", content: "Experience next-generation gaming with stunning visuals and instant gameplay" },
+        { hid: "og:type", property: "og:type", content: "website" },
+        { hid: "og:image", property: "og:image", content: "https://framerusercontent.com/images/tGC9mRFxDeupfLeOq1k5hWWq8.png" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "robots", content: "index, follow" },
       ],
+      link: [
+        { rel: "canonical", href: "https://yourdomain.com" },
+      ],
+      script: [
+        {
+          type: "application/ld+json",
+          json: {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Voodoo Games",
+            "description": "Leading mobile game publisher creating hyper-casual games",
+            "url": "https://yourdomain.com",
+            "logo": "https://framerusercontent.com/images/tGC9mRFxDeupfLeOq1k5hWWq8.png",
+            "sameAs": [
+              "https://www.facebook.com/voodoo",
+              "https://twitter.com/voodoo",
+              "https://www.instagram.com/voodoo"
+            ]
+          }
+        }
+      ]
     };
   },
 };
