@@ -123,7 +123,7 @@
     </div>
 
     <!-- Loading State -->
-    <di
+    <div
       v-if="loading"
       class="z-[3000] fixed inset-0 flex justify-center items-center bg-black"
     >
@@ -142,9 +142,8 @@
           Loading Experience...
         </p>
       </div>
-    </di
+    </div>
 
-    <!-- Error State -->
     <div
       v-if="error && !loading"
       class="z-[3000] fixed inset-0 flex justify-center items-center bg-black px-4"
@@ -185,19 +184,6 @@
       ref="heroSection"
       class="relative flex justify-center items-center w-full h-screen overflow-hidden"
     >
-      <video
-        ref="heroVideo"
-        class="z-[5] absolute inset-0 w-full h-screen object-cover"
-        src="../assets/video/animated-retro-gamepad-loopable-video-2025-12-09-04-44-52-utc_1_online-video-cutter.com.mp4"
-        muted
-        playsinline
-        autoplay
-        loop
-      ></video>
-
-      <div
-        class="z-[5] absolute inset-0 bg-gradient-to-br from-red-950/60 via-black/70 to-purple-950/60"
-      ></div>
 
       <!-- Animated Rings -->
       <div class="z-[100] absolute inset-0 flex justify-center items-center">
@@ -261,10 +247,33 @@
       ref="gamesSection"
       class="relative bg-black pb-20 md:pb-0 w-full"
     >
-      <!-- Desktop: Fixed Background Videos -->
+      <!-- Transition Blend Overlay -->
       <div
-        class="hidden md:block top-20 right-0 left-0 z-0 fixed h-[calc(100vh-80px)] overflow-hidden pointer-events-none"
+        ref="transitionBlend"
+        class="hidden md:block top-0 right-0 left-0 z-[6] fixed h-screen bg-black opacity-0 pointer-events-none transition-opacity duration-1000"
+      ></div>
+
+      <!-- Desktop: Fixed Background Videos (Including Hero) -->
+      <div
+        ref="gameVideosContainer"
+        class="hidden md:block top-0 right-0 left-0 z-[1] fixed h-screen overflow-hidden pointer-events-none"
       >
+        <!-- Hero Video (index -1) -->
+        <video
+          ref="heroVideoFixed"
+          class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+          :class="{
+            'opacity-100': currentGameIndex === -1,
+            'opacity-0': currentGameIndex !== -1,
+          }"
+          src="../assets/video/animated-retro-gamepad-loopable-video-2025-12-09-04-44-52-utc_1_online-video-cutter.com.mp4"
+          muted
+          playsinline
+          autoplay
+          loop
+        ></video>
+
+        <!-- Game Videos -->
         <video
           v-for="(game, index) in games"
           :key="game.id"
@@ -283,26 +292,35 @@
 
         <!-- Split Overlay: Left side dark, Right side clear -->
         <div class="absolute inset-0 pointer-events-none">
-          <!-- Left Side: Dark overlay for text area -->
+          <!-- Hero Overlay (when currentGameIndex === -1) - Very light overlay -->
           <div
-            class="top-0 bottom-0 left-0 absolute bg-gradient-to-r from-black/90 via-black/70 to-transparent w-[55%]"
+            v-if="currentGameIndex === -1"
+            class="absolute inset-0 bg-gradient-to-br from-black/10 via-black/20 to-black/10 transition-opacity duration-1000"
           ></div>
 
-          <!-- Right Side: Light overlay to keep video visible -->
-          <div
-            class="top-0 right-0 bottom-0 absolute bg-gradient-to-l from-black/20 via-transparent to-transparent w-[45%]"
-          ></div>
+          <!-- Game Overlay (when currentGameIndex >= 0) -->
+          <template v-else>
+            <!-- Left Side: Dark overlay for text area -->
+            <div
+              class="top-0 bottom-0 left-0 absolute bg-gradient-to-r from-black/90 via-black/70 to-transparent w-[55%]"
+            ></div>
 
-          <!-- Dynamic Color Accent -->
-          <div
-            class="absolute inset-0 transition-opacity duration-1000"
-            :style="{
-              background: `radial-gradient(circle at ${
-                70 + currentGameIndex * 5
-              }% 50%, rgba(239, 68, 68, 0.15), transparent 60%)`,
-              opacity: 0.6,
-            }"
-          ></div>
+            <!-- Right Side: Light overlay to keep video visible -->
+            <div
+              class="top-0 right-0 bottom-0 absolute bg-gradient-to-l from-black/20 via-transparent to-transparent w-[45%]"
+            ></div>
+
+            <!-- Dynamic Color Accent -->
+            <div
+              class="absolute inset-0 transition-opacity duration-1000"
+              :style="{
+                background: `radial-gradient(circle at ${
+                  70 + currentGameIndex * 5
+                }% 50%, rgba(239, 68, 68, 0.15), transparent 60%)`,
+                opacity: 0.6,
+              }"
+            ></div>
+          </template>
         </div>
       </div>
 
@@ -640,7 +658,7 @@ export default {
       games: [],
       loading: true,
       error: null,
-      currentGameIndex: 0,
+      currentGameIndex: -1,
       currentSection: "home",
       currentSectionLabel: "HOME",
       mobileMenuOpen: false,
@@ -743,7 +761,22 @@ export default {
       const gsap = window.gsap;
       if (!gsap || this.games.length === 0) return;
 
-      // Hero section animations
+      // Transition from hero to first game
+      gsap.to({}, {
+        scrollTrigger: {
+          trigger: this.$refs.heroSection,
+          start: "bottom 60%",
+          end: "bottom 40%",
+          onEnter: () => {
+            this.currentGameIndex = 0;
+          },
+          onLeaveBack: () => {
+            this.currentGameIndex = -1;
+          },
+        },
+      });
+
+      // Hero section text animations
       if (this.$refs.heroTitle && this.$refs.heroSubtitle) {
         gsap.to([this.$refs.heroTitle, this.$refs.heroSubtitle], {
           scrollTrigger: {
