@@ -112,7 +112,7 @@
     </div>
 
     <!-- Section Label -->
-    <div
+    <!-- <div
       class="hidden md:block top-24 left-1/2 z-[1800] fixed -translate-x-1/2 pointer-events-none"
     >
       <span
@@ -120,7 +120,7 @@
       >
         {{ currentSectionLabel }}
       </span>
-    </div>
+    </div> -->
 
     <!-- Loading State -->
     <div
@@ -360,20 +360,26 @@
                     <h3
                       class="drop-shadow-[0_0_25px_rgba(239,68,68,0.8)] font-black text-red-500 text-3xl"
                     >
-                      {{ game.title1 }}
+                      {{ game.title }}
                     </h3>
-                    <h3
-                      class="bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 font-black text-transparent text-3xl"
-                    >
-                      {{ game.title2 }}
-                    </h3>
+                   
                   </div>
 
                   <p class="font-light text-white/80 text-sm leading-relaxed">
                     {{ game.description }}
                   </p>
 
-                  <div class="flex gap-3 mt-8">
+                  <!-- Coming Soon or Download Buttons -->
+                  <div v-if="game.isComingSoon" class="mt-8">
+                    <button
+                      disabled
+                      class="relative bg-gradient-to-r from-gray-800/30 via-gray-700/30 to-gray-800/30 backdrop-blur-md px-10 py-3.5 border-2 border-gray-500/30 rounded-full font-bold text-gray-300 text-base uppercase tracking-[0.2em] cursor-not-allowed shadow-[0_0_20px_rgba(100,100,100,0.2)] hover:shadow-[0_0_25px_rgba(100,100,100,0.25)] transition-all duration-300 overflow-hidden"
+                    >
+                      <span class="relative z-10">Coming Soon</span>
+                      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-gray-500/10 to-transparent animate-pulse"></div>
+                    </button>
+                  </div>
+                  <div v-else class="flex gap-3 mt-8">
                     <a
                       href="https://apps.apple.com"
                       target="_blank"
@@ -408,7 +414,7 @@
               <div class="flex">
                 <img
                   :src="game.linkImg"
-                  :alt="`${game.title1} ${game.title2} Logo`"
+                  :alt="`${game.title} Logo`"
                   class="drop-shadow-[0_0_25px_rgba(239,68,68,0.6)] max-w-[280px] max-h-34 object-contain"
                 />
               </div>
@@ -419,7 +425,17 @@
                 {{ game.description }}
               </p>
 
-              <div class="flex gap-4">
+              <!-- Coming Soon or Download Buttons -->
+              <div v-if="game.isComingSoon">
+                <button
+                  disabled
+                  class="relative bg-gradient-to-r from-gray-800/30 via-gray-700/30 to-gray-800/30 backdrop-blur-md px-14 py-4 border-2 border-gray-500/30 rounded-full font-bold text-gray-300 text-xl uppercase tracking-[0.2em] cursor-not-allowed shadow-[0_0_30px_rgba(100,100,100,0.25)] hover:shadow-[0_0_35px_rgba(100,100,100,0.3)] transition-all duration-300 overflow-hidden"
+                >
+                  <span class="relative z-10">Coming Soon</span>
+                  <div class="absolute inset-0 bg-gradient-to-r from-transparent via-gray-500/10 to-transparent animate-pulse"></div>
+                </button>
+              </div>
+              <div v-else class="flex gap-4">
                 <a
                   href="https://apps.apple.com"
                   target="_blank"
