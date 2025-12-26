@@ -373,29 +373,34 @@
                   <div v-if="game.isComingSoon" class="mt-8">
                     <button
                       disabled
-                      class="relative bg-gradient-to-r from-gray-800/30 via-gray-700/30 to-gray-800/30 backdrop-blur-md px-10 py-3.5 border-2 border-gray-500/30 rounded-full font-bold text-gray-300 text-base uppercase tracking-[0.2em] cursor-not-allowed shadow-[0_0_20px_rgba(100,100,100,0.2)] hover:shadow-[0_0_25px_rgba(100,100,100,0.25)] transition-all duration-300 overflow-hidden"
+                      class="relative bg-gradient-to-br from-gray-700 via-gray-600 to-gray-700 backdrop-blur-md px-8 py-3 border-2 border-gray-500/60 rounded-lg font-bold text-gray-400 text-sm uppercase tracking-[0.15em] cursor-not-allowed shadow-[inset_0_2px_4px_rgba(0,0,0,0.6),inset_0_-2px_4px_rgba(255,255,255,0.05),0_6px_20px_rgba(0,0,0,0.6),0_0_30px_rgba(156,163,175,0.4)] hover:shadow-[inset_0_2px_5px_rgba(0,0,0,0.7),inset_0_-2px_5px_rgba(255,255,255,0.05),0_6px_25px_rgba(0,0,0,0.7),0_0_35px_rgba(156,163,175,0.5)] transition-all duration-300 overflow-hidden"
+                      style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.2) 10px, rgba(0,0,0,0.2) 20px);"
                     >
                       <span class="relative z-10">Coming Soon</span>
-                      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-gray-500/10 to-transparent animate-pulse"></div>
+                      <div class="absolute inset-0 bg-gradient-to-r from-gray-500/0 via-gray-400/10 to-gray-500/0 animate-pulse"></div>
+                      <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gray-400/30 to-transparent"></div>
+                      <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-black/40 to-transparent"></div>
                     </button>
                   </div>
                   <div v-else class="flex gap-3 mt-8">
                     <a
                       href="https://apps.apple.com"
                       target="_blank"
+                      class="group relative block hover:scale-105 transition-all duration-300 h-16 flex items-center"
                     >
                       <img
                         src="../assets/Download_on_the_App_Store_Badge.svg"
-                        class="w-auto h-12 object-contain"
+                        class="w-auto h-10 object-contain"
                       />
                     </a>
                     <a
                       href="https://play.google.com/store"
                       target="_blank"
+                      class="group relative block hover:scale-105 transition-all duration-300 h-16 flex items-center"
                     >
                       <img
                         src="../assets/Google_Play_Store_badge_EN.svg"
-                        class="w-auto h-12 object-contain"
+                        class="w-auto h-10 object-contain"
                       />
                     </a>
                   </div>
@@ -429,23 +434,27 @@
               <div v-if="game.isComingSoon">
                 <button
                   disabled
-                  class="relative bg-gradient-to-r from-gray-800/30 via-gray-700/30 to-gray-800/30 backdrop-blur-md px-14 py-4 border-2 border-gray-500/30 rounded-full font-bold text-gray-300 text-xl uppercase tracking-[0.2em] cursor-not-allowed shadow-[0_0_30px_rgba(100,100,100,0.25)] hover:shadow-[0_0_35px_rgba(100,100,100,0.3)] transition-all duration-300 overflow-hidden"
+                  class="relative bg-gradient-to-br from-gray-700 via-gray-600 to-gray-700 backdrop-blur-md px-12 py-3.5 border-2 border-gray-500/60 rounded-lg font-bold text-gray-400 text-lg uppercase tracking-[0.15em] cursor-not-allowed shadow-[inset_0_2px_4px_rgba(0,0,0,0.6),inset_0_-2px_4px_rgba(255,255,255,0.05),0_6px_30px_rgba(0,0,0,0.6),0_0_40px_rgba(156,163,175,0.4)] hover:shadow-[inset_0_2px_5px_rgba(0,0,0,0.7),inset_0_-2px_5px_rgba(255,255,255,0.05),0_6px_35px_rgba(0,0,0,0.7),0_0_45px_rgba(156,163,175,0.5)] transition-all duration-300 overflow-hidden"
+                  style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.2) 10px, rgba(0,0,0,0.2) 20px);"
                 >
                   <span class="relative z-10">Coming Soon</span>
-                  <div class="absolute inset-0 bg-gradient-to-r from-transparent via-gray-500/10 to-transparent animate-pulse"></div>
+                  <div class="absolute inset-0 bg-gradient-to-r from-gray-500/0 via-gray-400/10 to-gray-500/0 animate-pulse"></div>
+                  <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gray-400/30 to-transparent"></div>
+                  <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-black/40 to-transparent"></div>
                 </button>
               </div>
-              <div v-else class="flex gap-4">
+              <div v-else class="flex gap-6">
                 <a
                   href="https://apps.apple.com"
                   target="_blank"
-                  class="group inline-block relative hover:scale-110 transition-transform duration-300"
+                  class="group relative block hover:scale-105 transition-all duration-300 h-20 flex items-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    height="93"
+                    height="48"
                     viewBox="3.552713678800501e-15 -8.881784197001252e-16 540.0040000000001 160"
-                    width="144"
+                    width="150"
+                    class="h-12 w-auto"
                   >
                     <linearGradient
                       id="a"
@@ -505,7 +514,7 @@
                 <a
                   href="https://play.google.com/store"
                   target="_blank"
-                  class="group inline-block relative hover:scale-110 transition-transform duration-300"
+                  class="group relative block hover:scale-105 transition-all duration-300 h-20 flex items-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -513,11 +522,12 @@
                     xmlns:dc="http://purl.org/dc/elements/1.1/"
                     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                     id="svg51"
-                    width="159"
-                    height="93.333"
+                    width="150"
+                    height="48"
                     version="1.1"
                     viewBox="0 0 180 53.333"
                     xml:space="preserve"
+                    class="h-12 w-auto"
                   >
                     <metadata id="metadata9">
                       <rdf:RDF
@@ -868,7 +878,7 @@ export default {
               trigger: gameSection,
               start: "top 80%",
               end: "bottom 20%",
-              scrub: 0.8,
+              scrub: 1,
             },
           });
 
@@ -883,20 +893,20 @@ export default {
               opacity: 1,
               scale: 1,
               rotationY: 0,
-              duration: 0.3,
+              duration: 2,
               ease: "power2.out",
             }
           )
             .to(gameContent, {
               opacity: 1,
               scale: 1,
-              duration: 0.4,
+              duration: 2,
               ease: "none",
             })
             .to(gameContent, {
               opacity: 0,
               scale: 0.9,
-              duration: 0.3,
+              duration: 2,
               ease: "power2.in",
             });
         });
