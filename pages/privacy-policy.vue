@@ -403,16 +403,7 @@
         </div>
 
         <!-- Back Button -->
-        <div class="relative mt-12 md:mt-16 text-center">
-          <nuxt-link
-            to="/"
-            class="group inline-flex items-center gap-3 relative bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 hover:shadow-[0_0_50px_rgba(239,68,68,0.8)] px-8 md:px-12 py-4 md:py-5 rounded-full font-bold text-base md:text-lg text-white hover:scale-110 transition-all duration-300 overflow-hidden"
-          >
-            <div class="absolute inset-0 bg-gradient-to-r from-red-600 via-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            
-            <span class="relative">Back to Home</span>
-          </nuxt-link>
-        </div>
+        
       </div>
     </main>
 
