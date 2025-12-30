@@ -652,12 +652,12 @@
         <div
           class="flex flex-wrap justify-center gap-6 md:gap-10 text-sm md:text-base"
         >
-          <a
-            href="#"
+          <nuxt-link
+            to="/privacy-policy"
             class="text-white/60 hover:text-red-400 transition-colors duration-300"
           >
             Privacy Policy
-          </a>
+          </nuxt-link>
           <a
             href="#"
             class="text-white/60 hover:text-red-400 transition-colors duration-300"
@@ -665,7 +665,7 @@
             Terms of Service
           </a>
           <a
-            href="#"
+            href="mailto:neksolution.com@gmail.com"
             class="text-white/60 hover:text-red-400 transition-colors duration-300"
           >
             Contact Us
