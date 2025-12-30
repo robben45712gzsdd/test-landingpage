@@ -665,7 +665,7 @@
             </div>
             <div>
               <h4 class="mb-1 font-semibold text-red-400 text-sm md:text-base">
-                Gọi bất cứ lúc nào
+                Call anytime
               </h4>
               <a
                 href="tel:+84865618705"
@@ -685,7 +685,7 @@
             </div>
             <div>
               <h4 class="mb-1 font-semibold text-red-400 text-sm md:text-base">
-                Gửi email
+                Send email
               </h4>
               <a
                 href="mailto:Admin@neksolution.com"
@@ -706,7 +706,7 @@
             </div>
             <div>
               <h4 class="mb-1 font-semibold text-red-400 text-sm md:text-base">
-                Ghé thăm chúng tôi
+                Visit us
               </h4>
               <p class="text-white/60 text-sm leading-relaxed">
                 28/65 Nguyen Dong Chi, Nam Tu Liem, Ha Noi
@@ -718,7 +718,7 @@
         <!-- Social Media -->
         <div class="mb-10 md:mb-12 text-center">
           <h4 class="mb-5 font-semibold text-lg text-white">
-            Theo dõi chúng tôi
+            Follow us
           </h4>
           <div class="flex justify-center gap-3">
             <a
