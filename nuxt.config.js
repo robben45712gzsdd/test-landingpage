@@ -48,7 +48,9 @@ export default {
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: {
+    transpile: ['@studio-freight/lenis'],
+  },
 
   ssr: true,
   target: "static",

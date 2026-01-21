@@ -798,6 +798,7 @@
 
 <script>
 import { getListGame } from "~/apis/gameApi.js";
+import Lenis from "@studio-freight/lenis";
 
 export default {
   name: "IndexPage",
@@ -817,15 +818,34 @@ export default {
       ],
       scrollListener: null,
       sectionTrackListener: null,
+      lenis: null,
     };
   },
   async mounted() {
     await this.fetchGames();
 
+    // Initialize Lenis smooth scroll
+    this.lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: "vertical",
+      gestureDirection: "vertical",
+      smooth: true,
+      smoothTouch: false,
+      touchMultiplier: 2,
+    });
+
     const waitForGSAP = setInterval(() => {
       if (window.gsap && window.ScrollTrigger) {
         clearInterval(waitForGSAP);
         window.gsap.registerPlugin(window.ScrollTrigger);
+
+        // Connect Lenis to GSAP ScrollTrigger
+        this.lenis.on("scroll", window.ScrollTrigger.update);
+        window.gsap.ticker.add((time) => {
+          this.lenis.raf(time * 1000);
+        });
+        window.gsap.ticker.lagSmoothing(0);
 
         this.$nextTick(() => {
           this.setupScrollAnimations();
@@ -838,6 +858,9 @@ export default {
     setTimeout(() => clearInterval(waitForGSAP), 5000);
   },
   beforeDestroy() {
+    if (this.lenis) {
+      this.lenis.destroy();
+    }
     if (this.scrollListener)
       window.removeEventListener("scroll", this.scrollListener);
     if (this.sectionTrackListener)
@@ -866,8 +889,8 @@ export default {
 
     scrollToSection(sectionId) {
       const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+      if (element && this.lenis) {
+        this.lenis.scrollTo(element, { duration: 1.5 });
         this.mobileMenuOpen = false;
       }
     },
