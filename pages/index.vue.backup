@@ -3,7 +3,7 @@
     <!-- Header -->
     <header class="header-section">
       <nav class="navbar">
-        <div class="logo">Voodoo</div>
+        <div class="logo">NEKSOLUTION</div>
         <div class="nav-links">
           <a href="#home" class="nav-link">Home</a>
           <a href="#games" class="nav-link">Games</a>
@@ -231,16 +231,16 @@
     <!-- ABOUT SECTION -->
     <section class="about-section" id="about" ref="aboutSection">
       <div class="about-container">
-        <h2 class="section-title">About Voodoo</h2>
+        <h2 class="section-title">About NEKSOLUTION</h2>
         <div class="about-content">
           <p>
-            Voodoo is a leading mobile game publisher creating hyper-casual games that are always fresh, always fun, and always satisfying. With a focus on simple yet addictive gameplay, our games have been downloaded by millions worldwide.
+            NEKSOLUTION is a leading mobile game publisher creating hyper-casual games that are always fresh, always fun, and always satisfying. With a focus on simple yet addictive gameplay, our games have been downloaded by millions worldwide.
           </p>
           <p>
-            We believe in creating gaming experiences that are instantly engaging and endlessly entertaining. From strategy to puzzles, racing to flipping challenges, Voodoo games offer something for everyone.
+            We believe in creating gaming experiences that are instantly engaging and endlessly entertaining. From strategy to puzzles, racing to flipping challenges, NEKSOLUTION games offer something for everyone.
           </p>
           <p>
-            Join our community of players and discover why Voodoo games are the most fun you can have on your phone.
+            Join our community of players and discover why NEKSOLUTION games are the most fun you can have on your phone.
           </p>
         </div>
       </div>
@@ -250,8 +250,8 @@
     <footer class="footer-section" ref="footerSection">
       <div class="footer-container">
         <div class="footer-content">
-          <h3>Voodoo Games</h3>
-          <p>&copy; 2025 Voodoo. All rights reserved.</p>
+          <h3>NEKSOLUTION Games</h3>
+          <p>&copy; 2025 NEKSOLUTION. All rights reserved.</p>
           <div class="footer-links">
             <a href="#" target="_blank">Privacy Policy</a>
             <a href="#" target="_blank">Terms of Service</a>
@@ -553,7 +553,7 @@ export default {
   },
   head() {
     return {
-      title: 'Voodoo - Entertain the World',
+      title: 'NEKSOLUTION - Entertain the World',
       meta: [
         {
           hid: 'description',

@@ -1,7 +1,7 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: "Voodoo - Entertain the World",
+    title: "NEKSOLUTION - Entertain the World",
     htmlAttrs: {
       lang: "en",
     },
@@ -11,7 +11,7 @@ export default {
       {
         hid: "description",
         name: "description",
-        content: "Voodoo - Entertain the world with iconic apps and games",
+        content: "NEKSOLUTION - Entertain the world with iconic apps and games",
       },
     ],
     link: [
@@ -25,6 +25,9 @@ export default {
         src: "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js",
       },
     ],
+  },
+ axios: {
+    baseURL: process.env.API_BASE_URL ,
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
@@ -40,7 +43,9 @@ export default {
   buildModules: [],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: [],
+  modules: [
+    '@nuxtjs/axios',
+  ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
