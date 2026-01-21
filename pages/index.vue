@@ -797,6 +797,8 @@
 </template>
 
 <script>
+import { getListGame } from "~/apis/gameApi.js";
+
 export default {
   name: "IndexPage",
   data() {
@@ -847,9 +849,7 @@ export default {
       this.error = null;
 
       try {
-        const response = await this.$axios.$get(
-          "http://154.26.134.211:8090/api/Game/GetListGame"
-        );
+        const response = await getListGame(this.$axios);
 
         if (response.isSuccess && response.data) {
           this.games = response.data;

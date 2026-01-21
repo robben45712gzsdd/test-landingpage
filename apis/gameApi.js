@@ -1,12 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://154.26.134.211:8090/api/Game';
+const BASE_URL = process.env.API_BASE_URL ;
 
-export function getListGame() {
-  return new Promise((resolve, reject) => {
-    axios
-      .get(`${BASE_URL}/GetListGame`)
-      .then((res) => resolve(res.data))
-      .catch((err) => reject(err));
-  });
+export function getListGame($axios) {
+  return $axios.$get('/Game/GetListGame');
 }
