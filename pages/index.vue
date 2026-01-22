@@ -22,21 +22,49 @@
 
     <!-- Header -->
     <header
-      class="top-0 right-0 left-0 z-[2000] fixed bg-gray-900/60 backdrop-blur-2xl border-red-500/20 border-b h-20"
+      ref="headerNav"
+      :class="[
+        'top-0 right-0 left-0 z-[2000] fixed border-b h-20 transition-all duration-700',
+        currentSection === 'home' 
+          ? 'bg-gray-900/10 backdrop-blur-sm border-red-500/5' 
+          : 'bg-gray-900/60 backdrop-blur-2xl border-red-500/20'
+      ]"
     >
-      <nav class="flex justify-between items-center mx-auto px-12 h-full">
-        <div class="group relative">
+      <nav class="relative flex justify-between items-center mx-auto px-12 h-full">
+        <!-- Logo -->
+        <div 
+          ref="headerLogo"
+          class="group relative transition-all duration-700"
+          :class="currentSection === 'home' ? 'header-logo-center' : 'header-logo-left'"
+        >
           <div
             class="relative bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-red-400 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(239,68,68,0.7)] font-black text-transparent text-2xl lg:text-3xl tracking-wider transition-all duration-300"
             style="text-shadow: 0 0 10px rgba(239, 68, 68, 0.4)"
           >
-            <!-- NEKSTUDIO -->
-             <img src="@/assets/logo/5_white.png" alt="NEKSTUDIO" class="w-auto h-10 object-contain">
+            <img
+              src="@/assets/logo/5_white.png"
+              alt="NEKSTUDIO"
+              class="w-auto h-10 object-contain"
+            />
           </div>
         </div>
 
+        <!-- Center Slogan -->
+        <div 
+          ref="headerSlogan"
+          class="absolute left-1/2 -translate-x-1/2 transition-all duration-700"
+          :class="currentSection === 'home' ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
+        >
+          <p class="bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 font-bold text-transparent text-base lg:text-lg tracking-wide whitespace-nowrap">
+            True Game - Real Entertainment
+          </p>
+        </div>
+
         <!-- Desktop Menu -->
-        <div class="hidden md:flex gap-8">
+        <div 
+          class="hidden md:flex gap-8 transition-all duration-700"
+          :class="currentSection === 'home' ? 'opacity-0 pointer-events-none' : 'opacity-100'"
+        >
           <a
             v-for="section in ['home', 'games', 'about']"
             :key="section"
@@ -59,7 +87,8 @@
         <!-- Mobile Menu Icon -->
         <button
           @click="mobileMenuOpen = !mobileMenuOpen"
-          class="md:hidden text-red-500"
+          class="md:hidden text-red-500 transition-all duration-700"
+          :class="currentSection === 'home' ? 'opacity-0 pointer-events-none' : 'opacity-100'"
         >
           <svg
             class="w-7 h-7"
@@ -128,19 +157,18 @@
       v-if="loading"
       class="z-[3000] fixed inset-0 flex justify-center items-center bg-black"
     >
-      <div class="text-center">
-        <div class="relative mx-auto mb-6 w-20 h-20">
-          <div
-            class="absolute inset-0 border-4 border-red-500/20 rounded-full"
-          ></div>
-          <div
-            class="absolute inset-0 border-4 border-transparent border-t-red-500 rounded-full animate-spin"
-          ></div>
+      <div class="flex flex-col items-center justify-center text-center">
+        <div class="relative mb-6">
+          <img
+            src="@/assets/logo/5_white.png"
+            alt="NEKSTUDIO"
+            class="w-auto h-16 md:h-20 object-contain opacity-80 drop-shadow-[0_0_20px_rgba(239,68,68,0.5)] animate-breathing"
+          />
         </div>
         <p
-          class="bg-clip-text bg-gradient-to-r from-red-500 to-pink-500 font-bold text-transparent text-xl"
+          class="bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 font-bold text-transparent text-lg md:text-xl tracking-wide animate-gradient animate-breathing"
         >
-          Loading Experience...
+          True Game - Real Entertainment
         </p>
       </div>
     </div>
@@ -185,7 +213,6 @@
       ref="heroSection"
       class="relative flex justify-center items-center w-full h-screen overflow-hidden"
     >
-
       <!-- Animated Rings -->
       <div class="z-[100] absolute inset-0 flex justify-center items-center">
         <div
@@ -204,7 +231,7 @@
             <span
               class="bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-red-600 text-transparent animate-gradient"
             >
-              ENTERTAIN
+              TRUE GAME
             </span>
           </h1>
           <h1
@@ -213,7 +240,7 @@
             <span
               class="bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-red-500 text-transparent animate-gradient animation-delay-300"
             >
-              THE WORLD
+              REAL ENTERTAINMENT
             </span>
           </h1>
         </div>
@@ -234,7 +261,9 @@
           <div
             class="absolute inset-0 bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 group-hover:scale-110 transition-transform duration-300"
           ></div>
-          <span class="relative flex items-center gap-3 text-white"> EXPLORE GAMES </span>
+          <span class="relative flex items-center gap-3 text-white">
+            EXPLORE GAMES
+          </span>
         </button>
 
         <!-- Scroll Indicator -->
@@ -363,7 +392,6 @@
                     >
                       {{ game.title }}
                     </h3>
-                   
                   </div>
 
                   <p class="font-light text-white/80 text-sm leading-relaxed">
@@ -375,12 +403,26 @@
                     <button
                       disabled
                       class="relative bg-gradient-to-br from-gray-700 via-gray-600 to-gray-700 shadow-[inset_0_2px_4px_rgba(0,0,0,0.6),inset_0_-2px_4px_rgba(255,255,255,0.05),0_6px_20px_rgba(0,0,0,0.6),0_0_30px_rgba(156,163,175,0.4)] hover:shadow-[inset_0_2px_5px_rgba(0,0,0,0.7),inset_0_-2px_5px_rgba(255,255,255,0.05),0_6px_25px_rgba(0,0,0,0.7),0_0_35px_rgba(156,163,175,0.5)] backdrop-blur-md px-8 py-3 border-2 border-gray-500/60 rounded-lg overflow-hidden font-bold text-gray-400 text-sm uppercase tracking-[0.15em] transition-all duration-300 cursor-not-allowed"
-                      style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.2) 10px, rgba(0,0,0,0.2) 20px);"
+                      style="
+                        background-image: repeating-linear-gradient(
+                          45deg,
+                          transparent,
+                          transparent 10px,
+                          rgba(0, 0, 0, 0.2) 10px,
+                          rgba(0, 0, 0, 0.2) 20px
+                        );
+                      "
                     >
                       <span class="z-10 relative">Coming Soon</span>
-                      <div class="absolute inset-0 bg-gradient-to-r from-gray-500/0 via-gray-400/10 to-gray-500/0 animate-pulse"></div>
-                      <div class="top-0 right-0 left-0 absolute bg-gradient-to-r from-transparent via-gray-400/30 to-transparent h-[2px]"></div>
-                      <div class="right-0 bottom-0 left-0 absolute bg-gradient-to-r from-transparent via-black/40 to-transparent h-[1px]"></div>
+                      <div
+                        class="absolute inset-0 bg-gradient-to-r from-gray-500/0 via-gray-400/10 to-gray-500/0 animate-pulse"
+                      ></div>
+                      <div
+                        class="top-0 right-0 left-0 absolute bg-gradient-to-r from-transparent via-gray-400/30 to-transparent h-[2px]"
+                      ></div>
+                      <div
+                        class="right-0 bottom-0 left-0 absolute bg-gradient-to-r from-transparent via-black/40 to-transparent h-[1px]"
+                      ></div>
                     </button>
                   </div>
                   <div v-else class="flex gap-3 mt-8">
@@ -436,12 +478,26 @@
                 <button
                   disabled
                   class="relative bg-gradient-to-br from-gray-700 via-gray-600 to-gray-700 shadow-[inset_0_2px_4px_rgba(0,0,0,0.6),inset_0_-2px_4px_rgba(255,255,255,0.05),0_6px_30px_rgba(0,0,0,0.6),0_0_40px_rgba(156,163,175,0.4)] hover:shadow-[inset_0_2px_5px_rgba(0,0,0,0.7),inset_0_-2px_5px_rgba(255,255,255,0.05),0_6px_35px_rgba(0,0,0,0.7),0_0_45px_rgba(156,163,175,0.5)] backdrop-blur-md px-12 py-3.5 border-2 border-gray-500/60 rounded-lg overflow-hidden font-bold text-gray-400 text-lg uppercase tracking-[0.15em] transition-all duration-300 cursor-not-allowed"
-                  style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.2) 10px, rgba(0,0,0,0.2) 20px);"
+                  style="
+                    background-image: repeating-linear-gradient(
+                      45deg,
+                      transparent,
+                      transparent 10px,
+                      rgba(0, 0, 0, 0.2) 10px,
+                      rgba(0, 0, 0, 0.2) 20px
+                    );
+                  "
                 >
                   <span class="z-10 relative">Coming Soon</span>
-                  <div class="absolute inset-0 bg-gradient-to-r from-gray-500/0 via-gray-400/10 to-gray-500/0 animate-pulse"></div>
-                  <div class="top-0 right-0 left-0 absolute bg-gradient-to-r from-transparent via-gray-400/30 to-transparent h-[2px]"></div>
-                  <div class="right-0 bottom-0 left-0 absolute bg-gradient-to-r from-transparent via-black/40 to-transparent h-[1px]"></div>
+                  <div
+                    class="absolute inset-0 bg-gradient-to-r from-gray-500/0 via-gray-400/10 to-gray-500/0 animate-pulse"
+                  ></div>
+                  <div
+                    class="top-0 right-0 left-0 absolute bg-gradient-to-r from-transparent via-gray-400/30 to-transparent h-[2px]"
+                  ></div>
+                  <div
+                    class="right-0 bottom-0 left-0 absolute bg-gradient-to-r from-transparent via-black/40 to-transparent h-[1px]"
+                  ></div>
                 </button>
               </div>
               <div v-else class="flex gap-6">
@@ -605,7 +661,7 @@
         <h2
           class="relative bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 mb-12 md:mb-16 font-black text-transparent text-5xl md:text-7xl text-center"
         >
-          About NEKSTUDIO
+          About NEK Studio
         </h2>
 
         <div
@@ -614,24 +670,25 @@
           <p
             class="bg-white/5 hover:bg-white/10 backdrop-blur-sm p-6 border border-red-500/20 hover:border-red-500/40 rounded-2xl transition-all duration-300"
           >
-            NEKSTUDIO is a leading mobile game publisher creating hyper-casual
-            games that are always fresh, always fun, and always satisfying. With
-            a focus on simple yet addictive gameplay, our games have been
-            downloaded by millions worldwide.
+            Nek Studio is a mobile game startup in Vietnam. Originally a team
+            specializing in NFTs (Non-Fast-Playing Games), we aim to create
+            products that offer long-term entertainment, prioritizing core
+            values ​​over time rather than chasing trends.
           </p>
           <p
             class="bg-white/5 hover:bg-white/10 backdrop-blur-sm p-6 border border-red-500/20 hover:border-red-500/40 rounded-2xl transition-all duration-300"
           >
-            We believe in creating gaming experiences that are instantly
-            engaging and endlessly entertaining. From strategy to puzzles,
-            racing to flipping challenges, NEKSTUDIO games offer something for
-            everyone.
+            We have a high-quality game development team, with a core group of
+            Game Designers who have over 60 million downloads. In addition, we
+            have young, dynamic, and efficient Game Developers, Artists, and VFX
+            Artists.
           </p>
           <p
             class="bg-white/5 hover:bg-white/10 backdrop-blur-sm p-6 border border-red-500/20 hover:border-red-500/40 rounded-2xl transition-all duration-300"
           >
-            Join our community of players and discover why NEKSTUDIO games are the
-            most fun you can have on your phone.
+            Our vision is to build our own empire, with unique ideas unlike any
+            previous product, aiming to become the number one game production
+            studio in Vietnam.
           </p>
         </div>
       </div>
@@ -648,21 +705,39 @@
             class="bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-red-400 mb-2 font-black text-transparent text-2xl md:text-3xl !text-center tracking-wider text\-center"
             style="text-shadow: 0 0 20px rgba(239, 68, 68, 0.3)"
           > -->
-            <!-- NEKSTUDIO -->
-             <img src="@/assets/logo/5_white.png" alt="NEKSTUDIO" class="w-auto h-20 object-contain">
+          <!-- NEKSTUDIO -->
+          <img
+            src="@/assets/logo/5_white.png"
+            alt="NEKSTUDIO"
+            class="w-auto h-20 object-contain"
+          />
           <!-- </h3> -->
           <p class="pt-4 font-light text-white/50 text-sm">
-            Entertain the world
+            True Game - Real Entertainment
           </p>
         </div>
 
         <!-- Contact Info -->
-        <div class="gap-6 md:gap-8 grid grid-cols-1 md:grid-cols-3 mb-10 md:mb-12">
+        <div
+          class="gap-6 md:gap-8 grid grid-cols-1 md:grid-cols-3 mb-10 md:mb-12"
+        >
           <!-- Phone -->
           <div class="flex items-start gap-4">
-            <div class="flex flex-shrink-0 justify-center items-center bg-gradient-to-br from-red-500/20 to-pink-500/20 border border-red-500/30 rounded-xl w-12 h-12">
-              <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            <div
+              class="flex flex-shrink-0 justify-center items-center bg-gradient-to-br from-red-500/20 to-pink-500/20 border border-red-500/30 rounded-xl w-12 h-12"
+            >
+              <svg
+                class="w-5 h-5 text-red-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                />
               </svg>
             </div>
             <div>
@@ -680,9 +755,21 @@
 
           <!-- Email -->
           <div class="flex items-start gap-4">
-            <div class="flex flex-shrink-0 justify-center items-center bg-gradient-to-br from-red-500/20 to-pink-500/20 border border-red-500/30 rounded-xl w-12 h-12">
-              <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            <div
+              class="flex flex-shrink-0 justify-center items-center bg-gradient-to-br from-red-500/20 to-pink-500/20 border border-red-500/30 rounded-xl w-12 h-12"
+            >
+              <svg
+                class="w-5 h-5 text-red-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
               </svg>
             </div>
             <div>
@@ -700,10 +787,27 @@
 
           <!-- Address -->
           <div class="flex items-start gap-4">
-            <div class="flex flex-shrink-0 justify-center items-center bg-gradient-to-br from-red-500/20 to-pink-500/20 border border-red-500/30 rounded-xl w-12 h-12">
-              <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            <div
+              class="flex flex-shrink-0 justify-center items-center bg-gradient-to-br from-red-500/20 to-pink-500/20 border border-red-500/30 rounded-xl w-12 h-12"
+            >
+              <svg
+                class="w-5 h-5 text-red-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                />
               </svg>
             </div>
             <div>
@@ -719,9 +823,7 @@
 
         <!-- Social Media -->
         <div class="mb-10 md:mb-12 text-center">
-          <h4 class="mb-5 font-semibold text-white text-lg">
-            Follow us
-          </h4>
+          <h4 class="mb-5 font-semibold text-white text-lg">Follow us</h4>
           <div class="flex justify-center gap-3">
             <a
               href="#"
@@ -730,8 +832,14 @@
               class="flex justify-center items-center bg-gradient-to-br from-red-500 to-pink-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] rounded-xl w-12 h-12 hover:scale-110 transition-all duration-300"
               aria-label="LinkedIn"
             >
-              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              <svg
+                class="w-5 h-5 text-white"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                />
               </svg>
             </a>
             <a
@@ -741,8 +849,14 @@
               class="flex justify-center items-center bg-gradient-to-br from-red-500 to-pink-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] rounded-xl w-12 h-12 hover:scale-110 transition-all duration-300"
               aria-label="Instagram"
             >
-              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              <svg
+                class="w-5 h-5 text-white"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                />
               </svg>
             </a>
             <a
@@ -752,8 +866,14 @@
               class="flex justify-center items-center bg-gradient-to-br from-red-500 to-pink-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] rounded-xl w-12 h-12 hover:scale-110 transition-all duration-300"
               aria-label="Facebook"
             >
-              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              <svg
+                class="w-5 h-5 text-white"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+                />
               </svg>
             </a>
             <a
@@ -763,22 +883,34 @@
               class="flex justify-center items-center bg-gradient-to-br from-red-500 to-pink-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] rounded-xl w-12 h-12 hover:scale-110 transition-all duration-300"
               aria-label="Twitter/X"
             >
-              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              <svg
+                class="w-4 h-4 text-white"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                />
               </svg>
             </a>
           </div>
         </div>
 
         <!-- Divider -->
-        <div class="bg-gradient-to-r from-transparent via-red-500/30 to-transparent mb-6 rounded-full w-full h-px"></div>
+        <div
+          class="bg-gradient-to-r from-transparent via-red-500/30 to-transparent mb-6 rounded-full w-full h-px"
+        ></div>
 
         <!-- Bottom Links -->
-        <div class="flex md:flex-row flex-col justify-between items-center gap-4 text-center">
+        <div
+          class="flex md:flex-row flex-col justify-between items-center gap-4 text-center"
+        >
           <p class="text-white/40 text-xs md:text-sm">
             &copy; 2025 NEKSTUDIO. All rights reserved.
           </p>
-          <div class="flex flex-wrap justify-center gap-4 md:gap-6 text-xs md:text-sm">
+          <div
+            class="flex flex-wrap justify-center gap-4 md:gap-6 text-xs md:text-sm"
+          >
             <nuxt-link
               to="/privacy-policy"
               class="text-white/50 hover:text-red-400 transition-colors"
@@ -826,7 +958,7 @@ export default {
   async mounted() {
     // Scroll to top on page load/refresh
     window.scrollTo(0, 0);
-    
+
     await this.fetchGames();
 
     // Initialize Lenis smooth scroll
@@ -896,20 +1028,20 @@ export default {
       const element = document.getElementById(sectionId);
       if (element && this.lenis) {
         // Reset currentGameIndex when going to home
-        if (sectionId === 'home') {
+        if (sectionId === "home") {
           this.currentGameIndex = -1;
-          this.lenis.scrollTo(element, { 
+          this.lenis.scrollTo(element, {
             duration: 1.5,
             onComplete: () => {
               this.currentGameIndex = -1;
-            }
+            },
           });
-        } else if (sectionId === 'games') {
-          this.lenis.scrollTo(element, { 
+        } else if (sectionId === "games") {
+          this.lenis.scrollTo(element, {
             duration: 1.5,
             onComplete: () => {
               this.currentGameIndex = 0;
-            }
+            },
           });
         } else {
           this.lenis.scrollTo(element, { duration: 1.5 });
@@ -920,10 +1052,10 @@ export default {
 
     updateCurrentSection() {
       const scrollPos = window.scrollY + window.innerHeight / 3;
-      
+
       const heroSection = this.$refs.heroSection;
       const gamesSection = this.$refs.gamesSection;
-      const aboutSection = document.getElementById('about');
+      const aboutSection = document.getElementById("about");
 
       const heroTop = heroSection?.offsetTop || 0;
       const gamesTop = gamesSection?.offsetTop || 0;
@@ -964,22 +1096,25 @@ export default {
       if (!gsap || this.games.length === 0) return;
 
       // Transition from hero to first game
-      gsap.to({}, {
-        scrollTrigger: {
-          trigger: this.$refs.heroSection,
-          start: "bottom 60%",
-          end: "bottom 40%",
-          onEnter: () => {
-            this.currentGameIndex = 0;
+      gsap.to(
+        {},
+        {
+          scrollTrigger: {
+            trigger: this.$refs.heroSection,
+            start: "bottom 60%",
+            end: "bottom 40%",
+            onEnter: () => {
+              this.currentGameIndex = 0;
+            },
+            onLeaveBack: () => {
+              this.currentGameIndex = -1;
+            },
+            onEnterBack: () => {
+              this.currentGameIndex = 0;
+            },
           },
-          onLeaveBack: () => {
-            this.currentGameIndex = -1;
-          },
-          onEnterBack: () => {
-            this.currentGameIndex = 0;
-          },
-        },
-      });
+        }
+      );
 
       // Hero section text animations
       if (this.$refs.heroTitle && this.$refs.heroSubtitle) {
@@ -1121,7 +1256,7 @@ export default {
   },
   head() {
     return {
-      title: "NEKSTUDIO - Entertain the World",
+      title: "True Game - Real Entertainment",
       meta: [
         {
           hid: "description",
@@ -1138,6 +1273,20 @@ export default {
 html {
   scroll-behavior: smooth;
 }
+
+/* Header Logo Animation */
+.header-logo-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.header-logo-left {
+  position: relative;
+  left: 0;
+  transform: translateX(0);
+}
+
 .game-content {
   left: 50%;
 }
@@ -1182,6 +1331,25 @@ html {
 
 .animation-delay-500 {
   animation-delay: 500ms;
+}
+
+/* Loading Logo Breathing Animation */
+@keyframes breathing {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+    filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.4));
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.9;
+    filter: drop-shadow(0 0 35px rgba(239, 68, 68, 0.7));
+  }
+}
+
+.animate-breathing {
+  animation: breathing 2.5s ease-in-out infinite;
 }
 
 /* Floating Particles */
