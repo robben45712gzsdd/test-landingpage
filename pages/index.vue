@@ -824,6 +824,9 @@ export default {
     };
   },
   async mounted() {
+    // Scroll to top on page load/refresh
+    window.scrollTo(0, 0);
+    
     await this.fetchGames();
 
     // Initialize Lenis smooth scroll
@@ -892,36 +895,64 @@ export default {
     scrollToSection(sectionId) {
       const element = document.getElementById(sectionId);
       if (element && this.lenis) {
-        this.lenis.scrollTo(element, { duration: 1.5 });
+        // Reset currentGameIndex when going to home
+        if (sectionId === 'home') {
+          this.currentGameIndex = -1;
+          this.lenis.scrollTo(element, { 
+            duration: 1.5,
+            onComplete: () => {
+              this.currentGameIndex = -1;
+            }
+          });
+        } else if (sectionId === 'games') {
+          this.lenis.scrollTo(element, { 
+            duration: 1.5,
+            onComplete: () => {
+              this.currentGameIndex = 0;
+            }
+          });
+        } else {
+          this.lenis.scrollTo(element, { duration: 1.5 });
+        }
         this.mobileMenuOpen = false;
       }
     },
 
+    updateCurrentSection() {
+      const scrollPos = window.scrollY + window.innerHeight / 3;
+      
+      const heroSection = this.$refs.heroSection;
+      const gamesSection = this.$refs.gamesSection;
+      const aboutSection = document.getElementById('about');
+
+      const heroTop = heroSection?.offsetTop || 0;
+      const gamesTop = gamesSection?.offsetTop || 0;
+      const aboutTop = aboutSection?.offsetTop || 0;
+
+      let currentSection = "home";
+      let sectionLabel = "HOME";
+
+      if (aboutTop && scrollPos >= aboutTop) {
+        currentSection = "about";
+        sectionLabel = "ABOUT";
+      } else if (gamesTop && scrollPos >= gamesTop) {
+        currentSection = "games";
+        sectionLabel = "GAMES";
+      } else {
+        currentSection = "home";
+        sectionLabel = "HOME";
+      }
+
+      this.currentSection = currentSection;
+      this.currentSectionLabel = sectionLabel;
+      this.sectionDots.forEach((dot) => {
+        dot.active = dot.id === currentSection;
+      });
+    },
+
     setupSectionTracking() {
       const trackScroll = () => {
-        const scrollPos = window.scrollY + window.innerHeight / 2;
-        const heroHeight = this.$refs.heroSection?.offsetHeight || 0;
-        const gamesHeight = this.$refs.gamesSection?.offsetHeight || 0;
-
-        let currentSection = "home";
-        let sectionLabel = "HOME";
-
-        if (scrollPos < heroHeight) {
-          currentSection = "home";
-          sectionLabel = "HOME";
-        } else if (scrollPos < heroHeight + gamesHeight) {
-          currentSection = "games";
-          sectionLabel = "GAMES";
-        } else {
-          currentSection = "about";
-          sectionLabel = "ABOUT";
-        }
-
-        this.currentSection = currentSection;
-        this.currentSectionLabel = sectionLabel;
-        this.sectionDots.forEach((dot) => {
-          dot.active = dot.id === currentSection;
-        });
+        this.updateCurrentSection();
       };
 
       this.sectionTrackListener = trackScroll;
@@ -943,6 +974,9 @@ export default {
           },
           onLeaveBack: () => {
             this.currentGameIndex = -1;
+          },
+          onEnterBack: () => {
+            this.currentGameIndex = 0;
           },
         },
       });
