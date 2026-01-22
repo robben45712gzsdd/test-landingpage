@@ -22,7 +22,7 @@
 
     <!-- Header -->
     <header
-      class="top-0 right-0 left-0 z-[2000] fixed bg-black/40 backdrop-blur-2xl border-red-500/20 border-b h-20"
+      class="top-0 right-0 left-0 z-[2000] fixed bg-gray-900/60 backdrop-blur-2xl border-red-500/20 border-b h-20"
     >
       <nav class="flex justify-between items-center mx-auto px-12 h-full">
         <div class="group relative">
@@ -30,7 +30,8 @@
             class="relative bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-red-400 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(239,68,68,0.7)] font-black text-transparent text-2xl lg:text-3xl tracking-wider transition-all duration-300"
             style="text-shadow: 0 0 10px rgba(239, 68, 68, 0.4)"
           >
-            NEKSOLUTION
+            <!-- NEKSTUDIO -->
+             <img src="@/assets/logo/5_white.png" alt="NEKSTUDIO" class="w-auto h-10 object-contain">
           </div>
         </div>
 
@@ -373,20 +374,20 @@
                   <div v-if="game.isComingSoon" class="mt-8">
                     <button
                       disabled
-                      class="relative bg-gradient-to-br from-gray-700 via-gray-600 to-gray-700 backdrop-blur-md px-8 py-3 border-2 border-gray-500/60 rounded-lg font-bold text-gray-400 text-sm uppercase tracking-[0.15em] cursor-not-allowed shadow-[inset_0_2px_4px_rgba(0,0,0,0.6),inset_0_-2px_4px_rgba(255,255,255,0.05),0_6px_20px_rgba(0,0,0,0.6),0_0_30px_rgba(156,163,175,0.4)] hover:shadow-[inset_0_2px_5px_rgba(0,0,0,0.7),inset_0_-2px_5px_rgba(255,255,255,0.05),0_6px_25px_rgba(0,0,0,0.7),0_0_35px_rgba(156,163,175,0.5)] transition-all duration-300 overflow-hidden"
+                      class="relative bg-gradient-to-br from-gray-700 via-gray-600 to-gray-700 shadow-[inset_0_2px_4px_rgba(0,0,0,0.6),inset_0_-2px_4px_rgba(255,255,255,0.05),0_6px_20px_rgba(0,0,0,0.6),0_0_30px_rgba(156,163,175,0.4)] hover:shadow-[inset_0_2px_5px_rgba(0,0,0,0.7),inset_0_-2px_5px_rgba(255,255,255,0.05),0_6px_25px_rgba(0,0,0,0.7),0_0_35px_rgba(156,163,175,0.5)] backdrop-blur-md px-8 py-3 border-2 border-gray-500/60 rounded-lg overflow-hidden font-bold text-gray-400 text-sm uppercase tracking-[0.15em] transition-all duration-300 cursor-not-allowed"
                       style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.2) 10px, rgba(0,0,0,0.2) 20px);"
                     >
-                      <span class="relative z-10">Coming Soon</span>
+                      <span class="z-10 relative">Coming Soon</span>
                       <div class="absolute inset-0 bg-gradient-to-r from-gray-500/0 via-gray-400/10 to-gray-500/0 animate-pulse"></div>
-                      <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gray-400/30 to-transparent"></div>
-                      <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-black/40 to-transparent"></div>
+                      <div class="top-0 right-0 left-0 absolute bg-gradient-to-r from-transparent via-gray-400/30 to-transparent h-[2px]"></div>
+                      <div class="right-0 bottom-0 left-0 absolute bg-gradient-to-r from-transparent via-black/40 to-transparent h-[1px]"></div>
                     </button>
                   </div>
                   <div v-else class="flex gap-3 mt-8">
                     <a
                       href="https://apps.apple.com"
                       target="_blank"
-                      class="group relative block hover:scale-105 transition-all duration-300 h-16 flex items-center"
+                      class="group block relative flex items-center h-16 hover:scale-105 transition-all duration-300"
                     >
                       <img
                         src="../assets/Download_on_the_App_Store_Badge.svg"
@@ -396,7 +397,7 @@
                     <a
                       href="https://play.google.com/store"
                       target="_blank"
-                      class="group relative block hover:scale-105 transition-all duration-300 h-16 flex items-center"
+                      class="group block relative flex items-center h-16 hover:scale-105 transition-all duration-300"
                     >
                       <img
                         src="../assets/Google_Play_Store_badge_EN.svg"
@@ -434,27 +435,27 @@
               <div v-if="game.isComingSoon">
                 <button
                   disabled
-                  class="relative bg-gradient-to-br from-gray-700 via-gray-600 to-gray-700 backdrop-blur-md px-12 py-3.5 border-2 border-gray-500/60 rounded-lg font-bold text-gray-400 text-lg uppercase tracking-[0.15em] cursor-not-allowed shadow-[inset_0_2px_4px_rgba(0,0,0,0.6),inset_0_-2px_4px_rgba(255,255,255,0.05),0_6px_30px_rgba(0,0,0,0.6),0_0_40px_rgba(156,163,175,0.4)] hover:shadow-[inset_0_2px_5px_rgba(0,0,0,0.7),inset_0_-2px_5px_rgba(255,255,255,0.05),0_6px_35px_rgba(0,0,0,0.7),0_0_45px_rgba(156,163,175,0.5)] transition-all duration-300 overflow-hidden"
+                  class="relative bg-gradient-to-br from-gray-700 via-gray-600 to-gray-700 shadow-[inset_0_2px_4px_rgba(0,0,0,0.6),inset_0_-2px_4px_rgba(255,255,255,0.05),0_6px_30px_rgba(0,0,0,0.6),0_0_40px_rgba(156,163,175,0.4)] hover:shadow-[inset_0_2px_5px_rgba(0,0,0,0.7),inset_0_-2px_5px_rgba(255,255,255,0.05),0_6px_35px_rgba(0,0,0,0.7),0_0_45px_rgba(156,163,175,0.5)] backdrop-blur-md px-12 py-3.5 border-2 border-gray-500/60 rounded-lg overflow-hidden font-bold text-gray-400 text-lg uppercase tracking-[0.15em] transition-all duration-300 cursor-not-allowed"
                   style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.2) 10px, rgba(0,0,0,0.2) 20px);"
                 >
-                  <span class="relative z-10">Coming Soon</span>
+                  <span class="z-10 relative">Coming Soon</span>
                   <div class="absolute inset-0 bg-gradient-to-r from-gray-500/0 via-gray-400/10 to-gray-500/0 animate-pulse"></div>
-                  <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gray-400/30 to-transparent"></div>
-                  <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-black/40 to-transparent"></div>
+                  <div class="top-0 right-0 left-0 absolute bg-gradient-to-r from-transparent via-gray-400/30 to-transparent h-[2px]"></div>
+                  <div class="right-0 bottom-0 left-0 absolute bg-gradient-to-r from-transparent via-black/40 to-transparent h-[1px]"></div>
                 </button>
               </div>
               <div v-else class="flex gap-6">
                 <a
                   href="https://apps.apple.com"
                   target="_blank"
-                  class="group relative block hover:scale-105 transition-all duration-300 h-20 flex items-center"
+                  class="group block relative flex items-center h-20 hover:scale-105 transition-all duration-300"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="48"
                     viewBox="3.552713678800501e-15 -8.881784197001252e-16 540.0040000000001 160"
                     width="150"
-                    class="h-12 w-auto"
+                    class="w-auto h-12"
                   >
                     <linearGradient
                       id="a"
@@ -514,7 +515,7 @@
                 <a
                   href="https://play.google.com/store"
                   target="_blank"
-                  class="group relative block hover:scale-105 transition-all duration-300 h-20 flex items-center"
+                  class="group block relative flex items-center h-20 hover:scale-105 transition-all duration-300"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -527,7 +528,7 @@
                     version="1.1"
                     viewBox="0 0 180 53.333"
                     xml:space="preserve"
-                    class="h-12 w-auto"
+                    class="w-auto h-12"
                   >
                     <metadata id="metadata9">
                       <rdf:RDF
@@ -604,7 +605,7 @@
         <h2
           class="relative bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 mb-12 md:mb-16 font-black text-transparent text-5xl md:text-7xl text-center"
         >
-          About NEKSOLUTION
+          About NEKSTUDIO
         </h2>
 
         <div
@@ -613,7 +614,7 @@
           <p
             class="bg-white/5 hover:bg-white/10 backdrop-blur-sm p-6 border border-red-500/20 hover:border-red-500/40 rounded-2xl transition-all duration-300"
           >
-            NEKSOLUTION is a leading mobile game publisher creating hyper-casual
+            NEKSTUDIO is a leading mobile game publisher creating hyper-casual
             games that are always fresh, always fun, and always satisfying. With
             a focus on simple yet addictive gameplay, our games have been
             downloaded by millions worldwide.
@@ -623,13 +624,13 @@
           >
             We believe in creating gaming experiences that are instantly
             engaging and endlessly entertaining. From strategy to puzzles,
-            racing to flipping challenges, NEKSOLUTION games offer something for
+            racing to flipping challenges, NEKSTUDIO games offer something for
             everyone.
           </p>
           <p
             class="bg-white/5 hover:bg-white/10 backdrop-blur-sm p-6 border border-red-500/20 hover:border-red-500/40 rounded-2xl transition-all duration-300"
           >
-            Join our community of players and discover why NEKSOLUTION games are the
+            Join our community of players and discover why NEKSTUDIO games are the
             most fun you can have on your phone.
           </p>
         </div>
@@ -638,18 +639,19 @@
 
     <!-- FOOTER -->
     <footer
-      class="z-20 relative bg-black/95 px-6 md:px-12 py-12 md:py-16 border-red-500/20 border-t w-full"
+      class="z-20 relative bg-black/90 px-6 md:px-12 py-12 md:py-16 border-red-500/20 border-t w-full"
     >
       <div class="mx-auto max-w-6xl">
         <!-- Logo -->
-        <div class="mb-10 md:mb-12 text-center">
-          <h3
-            class="bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-red-400 mb-2 font-black text-transparent text-2xl md:text-3xl tracking-wider"
+        <div class="flex flex-col items-center mb-10 md:mb-12 text-center">
+          <!-- <h3
+            class="bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-red-400 mb-2 font-black text-transparent text-2xl md:text-3xl !text-center tracking-wider text\-center"
             style="text-shadow: 0 0 20px rgba(239, 68, 68, 0.3)"
-          >
-            NEKSOLUTION
-          </h3>
-          <p class="font-light text-white/50 text-sm">
+          > -->
+            <!-- NEKSTUDIO -->
+             <img src="@/assets/logo/5_white.png" alt="NEKSTUDIO" class="w-auto h-20 object-contain">
+          <!-- </h3> -->
+          <p class="pt-4 font-light text-white/50 text-sm">
             Entertain the world
           </p>
         </div>
@@ -658,7 +660,7 @@
         <div class="gap-6 md:gap-8 grid grid-cols-1 md:grid-cols-3 mb-10 md:mb-12">
           <!-- Phone -->
           <div class="flex items-start gap-4">
-            <div class="flex justify-center items-center bg-gradient-to-br from-red-500/20 to-pink-500/20 border border-red-500/30 rounded-xl w-12 h-12 flex-shrink-0">
+            <div class="flex flex-shrink-0 justify-center items-center bg-gradient-to-br from-red-500/20 to-pink-500/20 border border-red-500/30 rounded-xl w-12 h-12">
               <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
@@ -678,7 +680,7 @@
 
           <!-- Email -->
           <div class="flex items-start gap-4">
-            <div class="flex justify-center items-center bg-gradient-to-br from-red-500/20 to-pink-500/20 border border-red-500/30 rounded-xl w-12 h-12 flex-shrink-0">
+            <div class="flex flex-shrink-0 justify-center items-center bg-gradient-to-br from-red-500/20 to-pink-500/20 border border-red-500/30 rounded-xl w-12 h-12">
               <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
@@ -689,7 +691,7 @@
               </h4>
               <a
                 href="mailto:Admin@neksolution.com"
-                class="text-white/60 hover:text-white text-sm transition-colors break-all"
+                class="text-white/60 hover:text-white text-sm break-all transition-colors"
               >
                 Admin@neksolution.com
               </a>
@@ -698,7 +700,7 @@
 
           <!-- Address -->
           <div class="flex items-start gap-4">
-            <div class="flex justify-center items-center bg-gradient-to-br from-red-500/20 to-pink-500/20 border border-red-500/30 rounded-xl w-12 h-12 flex-shrink-0">
+            <div class="flex flex-shrink-0 justify-center items-center bg-gradient-to-br from-red-500/20 to-pink-500/20 border border-red-500/30 rounded-xl w-12 h-12">
               <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -717,7 +719,7 @@
 
         <!-- Social Media -->
         <div class="mb-10 md:mb-12 text-center">
-          <h4 class="mb-5 font-semibold text-lg text-white">
+          <h4 class="mb-5 font-semibold text-white text-lg">
             Follow us
           </h4>
           <div class="flex justify-center gap-3">
@@ -725,7 +727,7 @@
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              class="flex justify-center items-center bg-gradient-to-br from-red-500 to-pink-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] rounded-xl w-12 h-12 transition-all duration-300 hover:scale-110"
+              class="flex justify-center items-center bg-gradient-to-br from-red-500 to-pink-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] rounded-xl w-12 h-12 hover:scale-110 transition-all duration-300"
               aria-label="LinkedIn"
             >
               <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -736,7 +738,7 @@
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              class="flex justify-center items-center bg-gradient-to-br from-red-500 to-pink-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] rounded-xl w-12 h-12 transition-all duration-300 hover:scale-110"
+              class="flex justify-center items-center bg-gradient-to-br from-red-500 to-pink-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] rounded-xl w-12 h-12 hover:scale-110 transition-all duration-300"
               aria-label="Instagram"
             >
               <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -747,7 +749,7 @@
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              class="flex justify-center items-center bg-gradient-to-br from-red-500 to-pink-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] rounded-xl w-12 h-12 transition-all duration-300 hover:scale-110"
+              class="flex justify-center items-center bg-gradient-to-br from-red-500 to-pink-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] rounded-xl w-12 h-12 hover:scale-110 transition-all duration-300"
               aria-label="Facebook"
             >
               <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -758,7 +760,7 @@
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              class="flex justify-center items-center bg-gradient-to-br from-red-500 to-pink-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] rounded-xl w-12 h-12 transition-all duration-300 hover:scale-110"
+              class="flex justify-center items-center bg-gradient-to-br from-red-500 to-pink-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] rounded-xl w-12 h-12 hover:scale-110 transition-all duration-300"
               aria-label="Twitter/X"
             >
               <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -774,7 +776,7 @@
         <!-- Bottom Links -->
         <div class="flex md:flex-row flex-col justify-between items-center gap-4 text-center">
           <p class="text-white/40 text-xs md:text-sm">
-            &copy; 2025 NEKSOLUTION. All rights reserved.
+            &copy; 2025 NEKSTUDIO. All rights reserved.
           </p>
           <div class="flex flex-wrap justify-center gap-4 md:gap-6 text-xs md:text-sm">
             <nuxt-link
@@ -1085,7 +1087,7 @@ export default {
   },
   head() {
     return {
-      title: "NEKSOLUTION - Entertain the World",
+      title: "NEKSTUDIO - Entertain the World",
       meta: [
         {
           hid: "description",

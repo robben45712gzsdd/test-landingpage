@@ -1,7 +1,7 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: "NEKSOLUTION - Entertain the World",
+    title: "NEKSTUDIO - Entertain the World",
     htmlAttrs: {
       lang: "en",
     },
@@ -11,11 +11,11 @@ export default {
       {
         hid: "description",
         name: "description",
-        content: "NEKSOLUTION - Entertain the world with iconic apps and games",
+        content: "NEKSTUDIO - Entertain the world with iconic apps and games",
       },
     ],
     link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: "icon", type: "image/x-icon", href: "/logo/5_icon_red.png" },
       { rel: "stylesheet", href: "https://cdn.tailwindcss.com" },
     ],
     script: [
@@ -51,7 +51,10 @@ export default {
   build: {
     transpile: ['@studio-freight/lenis'],
   },
-
+  server: {
+    port: 8080,
+  },
+   
   ssr: true,
   target: "static",
 };
