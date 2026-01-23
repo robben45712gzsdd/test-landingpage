@@ -1,0 +1,5 @@
+# app-ads.txt for idlebrick
+# Thêm content của bạn vào đây
+google_publisher_id = "ca-app-pub-xxxxxxxxxxxxxxxx"
+google_ad_unit_id = "ca-app-pub-3940256099942544/1033173712"
+game_name = "idlebrick"

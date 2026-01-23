@@ -47,6 +47,11 @@ export default {
     '@nuxtjs/axios',
   ],
 
+  // Server Middleware
+  serverMiddleware: [
+    '~/server-middleware/app-ads.js'
+  ],
+
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     transpile: ['@studio-freight/lenis'],
@@ -56,5 +61,26 @@ export default {
   },
    
   ssr: true,
-  target: "static",
+  target: "server",
+
+  // Generate dynamic routes
+  generate: {
+    routes: function() {
+      const fs = require('fs');
+      const path = require('path');
+      const gameDataDir = path.join(__dirname, 'game-data');
+      
+      if (!fs.existsSync(gameDataDir)) {
+        return [];
+      }
+      
+      const files = fs.readdirSync(gameDataDir);
+      return files
+        .filter(file => file.endsWith('.txt'))
+        .map(file => {
+          const gameName = file.replace('.txt', '');
+          return `/${gameName}`;
+        });
+    }
+  }
 };
