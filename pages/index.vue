@@ -46,8 +46,8 @@
         </div>
 
         <!-- Desktop Menu -->
-        <div class="hidden md:flex gap-8 transition-all duration-700"
-          :class="currentSection === 'home' ? 'opacity-0 pointer-events-none' : 'opacity-100'">
+        <div v-show="currentSection !== 'home'" class="hidden md:flex gap-8 transition-all duration-500 ease-in-out"
+          :class="'opacity-100 visible'">
           <a v-for="section in ['home', 'games', 'about']" :key="section" :href="`#${section}`" :class="[
             'font-bold text-sm  tracking-widest uppercase transition-all duration-300 relative group',
             currentSection === section
@@ -61,8 +61,8 @@
         </div>
 
         <!-- Mobile Menu Icon -->
-        <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-red-500 transition-all duration-700"
-          :class="currentSection === 'home' ? 'opacity-0 pointer-events-none' : 'opacity-100'">
+        <button v-show="currentSection !== 'home'" @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-red-500 transition-all duration-500 ease-in-out"
+          :class="'opacity-100 visible'">
           <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
@@ -135,8 +135,16 @@
     <!-- HOME SECTION -->
     <section id="home" ref="heroSection"
       class="relative flex justify-center items-center w-full h-screen overflow-hidden">
+      <!-- Mobile Background Video -->
+      <div class="md:hidden absolute inset-0 z-0">
+        <video
+          class="w-full h-full object-cover !brightness-[0.4]"
+          src="../assets/video/animated-retro-gamepad-loopable-video-2025-12-09-04-44-52-utc_1_online-video-cutter.com.mp4"
+          muted playsinline autoplay loop></video>
+      </div>
+
       <!-- Animated Rings -->
-      <div class="z-[100] absolute inset-0 flex justify-center items-center">
+      <div class="z-[5] absolute inset-0 flex justify-center items-center pointer-events-none">
         <div class="opacity-20 border-2 border-red-500/10 rounded-full w-96 h-96 animate-ping"></div>
         <div
           class="absolute opacity-20 border-2 border-pink-500/10 rounded-full w-[600px] h-[600px] animate-ping animation-delay-500">
@@ -246,7 +254,7 @@
               class="group relative bg-gradient-to-br from-red-950/40 via-black/60 to-purple-950/40 hover:shadow-[0_0_50px_rgba(239,68,68,0.3)] backdrop-blur-xl p-6 border-2 border-red-500/30 rounded-3xl overflow-hidden transition-all duration-500">
               <!-- Animated Border -->
               <div
-                class="absolute inset-0 bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500">
+                class="absolute inset-0  opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500">
               </div>
 
               <div class="relative">
@@ -690,8 +698,10 @@ export default {
 
     scrollToSection(sectionId) {
       const element = document.getElementById(sectionId);
-      if (element && this.lenis) {
-        // Reset currentGameIndex when going to home
+      if (!element) return;
+
+      if (this.lenis) {
+        // Use Lenis smooth scroll if available
         if (sectionId === "home") {
           this.currentGameIndex = -1;
           this.lenis.scrollTo(element, {
@@ -710,8 +720,18 @@ export default {
         } else {
           this.lenis.scrollTo(element, { duration: 1.5 });
         }
-        this.mobileMenuOpen = false;
+      } else {
+        // Fallback to native smooth scroll if Lenis is not ready
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (sectionId === "games") {
+          setTimeout(() => {
+            this.currentGameIndex = 0;
+          }, 800);
+        } else if (sectionId === "home") {
+          this.currentGameIndex = -1;
+        }
       }
+      this.mobileMenuOpen = false;
     },
 
     updateCurrentSection() {
