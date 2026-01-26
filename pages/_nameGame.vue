@@ -17,17 +17,6 @@ export default {
   mounted() {
     // Get game name from route params
     this.gameName = this.$route.params.nameGame || 'Unknown Game';
-    
-    // Redirect to app-ads.txt after a short delay
-    setTimeout(() => {
-      this.redirectToAppAds();
-    }, 1000);
-  },
-  methods: {
-    redirectToAppAds() {
-      const appAdsUrl = `/${this.gameName}/app-ads.txt`;
-      window.location.href = appAdsUrl;
-    }
   }
 }
 </script>
