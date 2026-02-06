@@ -136,9 +136,9 @@
     <section id="home" ref="heroSection"
       class="relative flex justify-center items-center w-full h-screen overflow-hidden">
       <!-- Mobile Background Video -->
-      <div class="md:hidden absolute inset-0 z-0">
+      <div class="md:hidden z-0 absolute inset-0">
         <video
-          class="w-full h-full object-cover !brightness-[0.4]"
+          class="!brightness-[0.4] w-full h-full object-cover"
           src="../assets/video/animated-retro-gamepad-loopable-video-2025-12-09-04-44-52-utc_1_online-video-cutter.com.mp4"
           muted playsinline autoplay loop></video>
       </div>
@@ -254,7 +254,7 @@
               class="group relative bg-gradient-to-br from-red-950/40 via-black/60 to-purple-950/40 hover:shadow-[0_0_50px_rgba(239,68,68,0.3)] backdrop-blur-xl p-6 border-2 border-red-500/30 rounded-3xl overflow-hidden transition-all duration-500">
               <!-- Animated Border -->
               <div
-                class="absolute inset-0  opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500">
+                class="absolute inset-0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500">
               </div>
 
               <div class="relative">
@@ -297,12 +297,24 @@
                       </div>
                     </button>
                   </div>
+                  <!-- Web Game: PLAY NOW -->
+                  <div v-else-if="game.testNetLink" class="mt-8">
+                    <a :href="game.testNetLink" target="_blank"
+                      class="group inline-flex relative items-center gap-3 px-8 py-3 rounded-lg overflow-hidden font-bold text-white text-sm uppercase tracking-[0.2em] hover:scale-105 transition-all duration-300 play-now-btn">
+                      <span class="play-now-btn-bg"></span>
+                      <span class="play-now-btn-glow"></span>
+                      <svg class="z-10 relative w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                      <span class="z-10 relative">Play Now</span>
+                      <span class="play-now-btn-shine"></span>
+                    </a>
+                  </div>
+                  <!-- Mobile Game: Store Buttons -->
                   <div v-else class="flex gap-3 mt-8">
-                    <a href="https://apps.apple.com" target="_blank"
+                    <a :href="game.appStoreLink || '#'" target="_blank"
                       class="group block relative flex items-center h-16 hover:scale-105 transition-all duration-300">
                       <img src="../assets/Download_on_the_App_Store_Badge.svg" class="w-auto h-10 object-contain" />
                     </a>
-                    <a href="https://play.google.com/store" target="_blank"
+                    <a :href="game.chPlayLink || '#'" target="_blank"
                       class="group block relative flex items-center h-16 hover:scale-105 transition-all duration-300">
                       <img src="../assets/Google_Play_Store_badge_EN.svg" class="w-auto h-10 object-contain" />
                     </a>
@@ -351,8 +363,20 @@
                   </div>
                 </button>
               </div>
+              <!-- Web Game: PLAY NOW -->
+              <div v-else-if="game.testNetLink" class="mt-2">
+                <a :href="game.testNetLink" target="_blank"
+                  class="group inline-flex relative items-center gap-4 px-12 py-4 rounded-lg overflow-hidden font-bold text-white text-xl uppercase tracking-[0.2em] hover:scale-105 transition-all duration-300 play-now-btn">
+                  <span class="play-now-btn-bg"></span>
+                  <span class="play-now-btn-glow"></span>
+                  <svg class="z-10 relative w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  <span class="z-10 relative">Play Now</span>
+                  <span class="play-now-btn-shine"></span>
+                </a>
+              </div>
+              <!-- Mobile Game: Store Buttons -->
               <div v-else class="flex gap-6">
-                <a href="https://apps.apple.com" target="_blank"
+                <a :href="game.appStoreLink || '#'" target="_blank"
                   class="group block relative flex items-center h-20 hover:scale-105 transition-all duration-300">
                   <svg xmlns="http://www.w3.org/2000/svg" height="48"
                     viewBox="3.552713678800501e-15 -8.881784197001252e-16 540.0040000000001 160" width="150"
@@ -380,7 +404,7 @@
                     </g>
                   </svg>
                 </a>
-                <a href="https://play.google.com/store" target="_blank"
+                <a :href="game.chPlayLink || '#'" target="_blank"
                   class="group block relative flex items-center h-20 hover:scale-105 transition-all duration-300">
                   <svg xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#"
                     xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -1092,6 +1116,76 @@ html {
     transform: translate(50px, 150px) scale(1.2);
     opacity: 0.5;
   }
+}
+
+/* PLAY NOW Button - Gaming Style */
+.play-now-btn {
+  position: relative;
+  border: 2px solid rgba(239, 68, 68, 0.7);
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+  box-shadow:
+    0 0 15px rgba(239, 68, 68, 0.4),
+    0 0 40px rgba(239, 68, 68, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.play-now-btn:hover {
+  border-color: rgba(239, 68, 68, 1);
+  box-shadow:
+    0 0 25px rgba(239, 68, 68, 0.6),
+    0 0 60px rgba(239, 68, 68, 0.3),
+    0 0 100px rgba(239, 68, 68, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  text-shadow: 0 0 15px rgba(239, 68, 68, 1), 0 0 30px rgba(239, 68, 68, 0.5);
+}
+
+.play-now-btn-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 40%, #7f1d1d 60%, #dc2626 100%);
+  background-size: 200% 200%;
+  animation: playNowGradient 3s ease infinite;
+}
+
+.play-now-btn-glow {
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, transparent 30%, rgba(239, 68, 68, 0.4) 50%, transparent 70%);
+  background-size: 200% 200%;
+  animation: playNowSweep 2s linear infinite;
+  border-radius: inherit;
+  z-index: 0;
+}
+
+.play-now-btn-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  animation: playNowShine 3s ease-in-out infinite;
+  z-index: 10;
+}
+
+.play-now-btn:hover .play-now-btn-bg {
+  animation-duration: 1.5s;
+}
+
+@keyframes playNowGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes playNowSweep {
+  0% { background-position: 200% 200%; }
+  100% { background-position: -200% -200%; }
+}
+
+@keyframes playNowShine {
+  0% { left: -100%; }
+  50% { left: 150%; }
+  100% { left: 150%; }
 }
 
 /* Smooth Transitions */
